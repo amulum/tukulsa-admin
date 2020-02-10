@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TableTransaction = (props) => {
+const TableReport = (props) => {
   const classes = useStyles();
 
   return (
@@ -67,4 +67,4 @@ const TableTransaction = (props) => {
   );
 }
 
-export default connect('listAllTransactions', actions) (withRouter(TableTransaction))
+export default connect('listAllTransactions', actions) (withRouter(TableReport))

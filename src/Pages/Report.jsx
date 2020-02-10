@@ -4,8 +4,9 @@ import MiniDrawer from '../Components/Layout/MiniDrawer'
 import { Typography } from '@material-ui/core'
 import '../App.css'
 import BoxElement from '../Components/BoxElement'
+import TableReport from '../Components/TableReport'
 
-const oke = 'ini dari notifi'
+const oke = <TableReport />
 class Report extends Component {
   componentDidMount = () => {
     console.log('masuk Notifications')
@@ -17,7 +18,7 @@ class Report extends Component {
       <MiniDrawer
       />
       {/* Content begin here */}
-      <main  style={{padding:'1.5em', paddingTop:'8%', flexGrow:'1'}}>
+      <main  style={{padding:'1.5em', paddingTop:'8%', width: "100%"}}>
         <Typography variant="h5" >
           Report
         </Typography>

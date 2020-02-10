@@ -3,7 +3,8 @@ import { Paper, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   wrapper : {
-    padding: '1em'
+    padding: '1em',
+    marginBottom: '1em'
   }
 }))
 const BoxElement = (props) => {

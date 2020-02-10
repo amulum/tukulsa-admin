@@ -12,9 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import '../App.css'
 import { connect } from 'unistore/react';
+import { actions, store } from '../store/store'
 
 function Copyright() {
   return (
@@ -53,53 +54,56 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const axiosLogin = async (props) => {
-  await props.handleLogin()
-}
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
-  const handleSubmitForm = (event) => {
+  const handleSubmitForm = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    console.log(event.target)
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
+    console.log(event.target.security.value)
+    let security = event.target.security.value
+    console.log('summary', props)
+    await props.handleLogin(security)
+    await props.history.replace('/dashboard')
+  }
+  if (localStorage.getItem('token')) {
+    return (
+      <Redirect to="/dashboard"/>
+    )
+  } else {
+      return (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <img src={require("../images/tukulsalogo-bg-none.png")} alt=""/>
+            <form className={classes.form} onSubmit={handleSubmitForm}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                color="secondary"
+                required
+                fullWidth
+                name="security"
+                label="Security Code"
+                type="password"
+                id="security"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                Sign In as admin
+              </Button>
+            </form>
+          </div>
+          <Box mt={2}>
+            <Copyright />
+          </Box>
+        </Container>
+      );
     }
-}
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img src={require("../images/tukulsalogo-bg-none.png")} alt=""/>
-        <form className={classes.form} onSubmit={handleSubmitForm}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            color="secondary"
-            required
-            fullWidth
-            name="security"
-            label="Security Code"
-            type="password"
-            id="security"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-          >
-            Sign In as admin
-          </Button>
-        </form>
-      </div>
-      <Box mt={2}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
-}
+  }
 
-export default connect('isLoggedIn') (withRouter(Login))
+export default connect('isLoggedIn', actions) (withRouter(Login))

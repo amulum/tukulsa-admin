@@ -29,8 +29,28 @@ export const actions = store => ({
     store.setState(dict)
   },
   // FUNCTIONS
-  handleLogin : async (state) => {
+  handleLogin : async (state, security) => {
     console.log('masuk handle login')
+    const req = await {
+      method: 'get',
+      url: `${apiPath}/auth?security_code=${security}`
+    };
+    console.log('cek req admin transactions', req);
+    const self = store;
+    await axios(req)
+      .then(response => {
+        self.setState({
+          isLoading: false
+        });
+        localStorage.setItem('token', response.data.token)
+        console.log('masuk then', response.data);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log('masuk error', error);
+      });
   },
   getAllTransactions: async (state) => {
     console.log('masuk get user transac')
