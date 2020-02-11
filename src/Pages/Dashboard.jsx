@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import "../App.css";
 import Summary from "../Components/Summary";
 import BoxElement from "../Components/BoxElement";
+import Balances from "../Components/Balance";
 
 class Dashboard extends Component {
   compornentDidMount = () => {
@@ -12,14 +13,14 @@ class Dashboard extends Component {
     console.log("did mount", this.props.listAllTransactions);
   };
   render() {
-    const oke = <Summary Transactions={this.props.listAllTransactions} />;
+    const oke = <Balances />;
     return (
       <Fragment>
         <MiniDrawer />
         {/* Content begin here */}
         <main style={{ padding: "1.5em", paddingTop: "8%", flexGrow: "1" }}>
           <Typography variant="h5">Dashboard</Typography>
-          <BoxElement value={oke} />
+          <Balances />
           <p>{JSON.stringify(this.props.listAllTransactions)}</p>
           <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

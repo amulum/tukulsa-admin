@@ -1,7 +1,7 @@
 import React from "react";
 
 const Summary = props => {
-  return <div>ini summary</div>;
+  return <div>Summary</div>;
 };
 
 export default Summary;
