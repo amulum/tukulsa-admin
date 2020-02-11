@@ -1,29 +1,11 @@
 import React, { Fragment } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { TableCell, TableRow, Typography, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import {  Typography, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
 import RowReport from "./Loop/RowReport";
 import LoadingRow from "./Loop/LoadingRow";
-
-const StyledTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: "#cde5ee",
-    color: theme.palette.common.black
-  },
-  body: {
-    fontSize: 14
-  }
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
-    }
-  }
-}))(TableRow);
 
 const useStyles = makeStyles({
   table: {
@@ -44,6 +26,7 @@ const TableReport = props => {
         orderId={item.order_id}
         report={item.text}
         status={item.status}
+        handleChangeReport={props.handleChangeReport}
       />
     );
   });
