@@ -6,9 +6,13 @@ import '../App.css'
 import Summary from '../Components/Summary'
 import BoxElement from '../Components/BoxElement'
 
-const oke = <Summary />
 class Dashboard extends Component {
+  compornentDidMount = () => {
+    this.props.getFilterTransactions(30)
+    console.log('did mount', this.props.listAllTransactions)
+  }
   render() {
+    const oke = <Summary Transactions={this.props.listAllTransactions}/>
     return(
     <Fragment >
       <MiniDrawer
@@ -21,6 +25,7 @@ class Dashboard extends Component {
         <BoxElement 
           value ={oke}
         />
+  <p>{JSON.stringify(this.props.listAllTransactions)}</p>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum

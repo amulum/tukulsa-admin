@@ -7,7 +7,7 @@ import { store } from '../store/store';
 import Dashboard from '../Pages/Dashboard'
 import Transactions from '../Pages/Transactions'
 import Report from '../Pages/Report'
-import Login from '../Pages/Login'
+import LoginPage from '../Pages/LoginPage'
 
 
 const Mainroute = () => {
@@ -15,10 +15,11 @@ const Mainroute = () => {
         <Provider store={store}>
             <BrowserRouter>
                 <Switch>
-                  <Route exact path="/login" component={Login}/>
+                  <Route exact path="/" component={LoginPage}/>
                   <Route exact path="/dashboard" component={Dashboard}/>
                   <Route exact path="/transactions" component={Transactions}/>
                   <Route exact path="/report" component={Report}/>
+                  <Route path="/:code" component={LoginPage}/>
                 </Switch>
             </BrowserRouter>
         </Provider>

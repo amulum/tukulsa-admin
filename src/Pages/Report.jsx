@@ -5,14 +5,17 @@ import { Typography } from '@material-ui/core'
 import '../App.css'
 import BoxElement from '../Components/BoxElement'
 import TableReport from '../Components/TableReport'
+import { connect } from 'unistore/react'
+import { actions } from '../store/store'
 
-const oke = <TableReport />
 class Report extends Component {
   componentDidMount = () => {
     console.log('masuk Notifications')
     console.log('thi props mathc', this.props)
+    this.props.getAllReport()
   }
   render() {
+    const oke = <TableReport listAllReport={this.props.listAllReport}/>
     return (
       <Fragment >
       <MiniDrawer
@@ -25,6 +28,7 @@ class Report extends Component {
         <BoxElement
           value ={oke}
         />
+        <p>{JSON.stringify(this.props.listAllReport)}</p>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -55,4 +59,4 @@ class Report extends Component {
   }
 }
 
-export default (withRouter(Report))
+export default connect('listAllReport', actions) (withRouter(Report))
