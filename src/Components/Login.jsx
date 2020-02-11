@@ -1,20 +1,12 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import { CssBaseline, TextField, Container, FormControl, InputLabel, FilledInput, InputAdornment, IconButton, Box, Typography } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import '../App.css'
 import { connect } from 'unistore/react';
+import { actions } from '../store/store'
 
 function Copyright() {
   return (
@@ -41,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -53,26 +45,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const axiosLogin = async (props) => {
-  await props.handleLogin()
-}
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    console.log(event.target)
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
-}
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <img src={require("../images/tukulsalogo-bg-none.png")} alt=""/>
-        <form className={classes.form} onSubmit={handleSubmitForm}>
+        <form className={classes.form} onSubmit={event => props.handleSubmit(event)}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -101,5 +82,6 @@ function Login() {
     </Container>
   );
 }
+  
 
-export default connect('isLoggedIn') (withRouter(Login))
+export default connect('isLoggedIn', actions) (withRouter(Login))

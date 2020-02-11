@@ -13,7 +13,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import WarningIcon from '@material-ui/icons/Warning';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { withRouter } from 'react-router-dom';
@@ -147,6 +146,10 @@ function MiniDrawer(props) {
     console.log('kiriamn dari child', pages)
     props.history.push(`/${pages}`)
   }
+  const handleLogout = async () => {
+    await localStorage.removeItem('token')
+    await props.history.push('/')
+  }
   return (
     <Fragment >
       {/* AppBar */}
@@ -243,6 +246,7 @@ function MiniDrawer(props) {
         <LeftMenu
             listIcon={listIconBottom}
             changePages={handleChangePages}
+            handleLogout={handleLogout}
             {...props}
           />
         </List>

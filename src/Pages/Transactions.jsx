@@ -24,17 +24,14 @@ class Transactions extends Component {
       <MiniDrawer
       />
       {/* Content begin here */}
-      <main  style={{padding:'1.5em', paddingTop:'8%', flexGrow:'1'}}>
+      <main  style={{padding:'1.5em', paddingTop:'8%', width:"100%"}}>
         <Typography variant="h5" >
           Transactions
         </Typography>
         <BoxElement 
           value ={oke}
         />
-        <Typography paragraph>
-          Transactions
-        </Typography>
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
           facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
           tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
@@ -44,7 +41,7 @@ class Transactions extends Component {
           tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
       </main>
       {/* EOF content */}
     </Fragment>

@@ -24,18 +24,6 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 const useStyles = makeStyles({
   table: {
     width: '100%',
@@ -57,9 +45,9 @@ const TableTransaction = (props) => {
             <TableRow>
               <StyledTableCell >ID</StyledTableCell>
               <StyledTableCell >ORDER ID</StyledTableCell>
-              <StyledTableCell >OPERATOR</StyledTableCell>
-              <StyledTableCell >STATUS PEMBAYARAN</StyledTableCell>
-              <StyledTableCell >STATUS ORDER</StyledTableCell>
+              <StyledTableCell >NOMOR</StyledTableCell>
+              <StyledTableCell >PEMBAYARAN</StyledTableCell>
+              <StyledTableCell >ORDER</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -67,7 +55,7 @@ const TableTransaction = (props) => {
               <StyledTableRow key={key}>
                 <StyledTableCell>{item.id}</StyledTableCell>
                 <StyledTableCell >{item.order_id}</StyledTableCell>
-                <StyledTableCell >{item.operator}</StyledTableCell>
+                <StyledTableCell >{item.phone_number}</StyledTableCell>
                 <StyledTableCell >{item.payment_status}</StyledTableCell>
                 <StyledTableCell >{item.order_status}</StyledTableCell>
               </StyledTableRow>
