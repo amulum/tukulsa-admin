@@ -4,15 +4,9 @@ import {
   CssBaseline,
   TextField,
   Container,
-  FormControl,
-  InputLabel,
-  FilledInput,
-  InputAdornment,
-  IconButton,
   Box,
   Typography
 } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter, Link } from "react-router-dom";
 import "../App.css";

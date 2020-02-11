@@ -12,9 +12,6 @@ import {
   Typography,
   Divider,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import "../../App.css";

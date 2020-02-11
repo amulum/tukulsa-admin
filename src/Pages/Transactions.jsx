@@ -17,7 +17,6 @@ class Transactions extends Component {
     await this.props.getAllTransactions();
   };
   render() {
-    const transaction = JSON.stringify(this.props.listAllTransactions);
     return (
       <Fragment>
         <MiniDrawer />

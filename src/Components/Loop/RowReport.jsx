@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "unistore/react";
 import { actions } from "../../store/store";
 import { withRouter } from "react-router-dom";
@@ -13,7 +13,6 @@ import {
   DialogTitle,
   DialogContentText
 } from "@material-ui/core";
-import ButtonReport from "./ButtonReport";
 // ICONS
 
 const useStyles = makeStyles(theme => ({
@@ -25,8 +24,33 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "400"
   }
 }));
+let variantButton, colorButton;
 function RowTable(props) {
+  console.log('id',props.id)
+  console.log('report',props.report)
+  const [open, setOpen] = useState(false)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const classes = useStyles();
+  const changeReport = props.handleChangeReport
+  const changeButton = async (reportId) => {
+    console.log('test changereport', changeReport)
+    changeReport(reportId)
+    setOpen(false)
+  }
+  console.log('propsdi rowtable',props)
+  if (props.status === "BELUM DISELESAIKAN") {
+    variantButton = "contained";
+    colorButton = "secondary";
+  } else {
+    variantButton = "contained";
+    colorButton = "disabled";
+  }
   return (
     <Fragment>
       <Grid
@@ -61,7 +85,40 @@ function RowTable(props) {
         className={classes.padding}
         style={{ textAlign: "center" }}
       >
-        <ButtonReport status={props.status} id={props.id} />
+        <Button
+        variant={variantButton}
+        color={colorButton}
+        onClick={handleClickOpen}
+      >
+        <Typography variant="subtitle2">{props.status}</Typography>
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Ubah status laporan menjadi Selesai?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Cek lagi laporan apakah benar sudah terselesaikan?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Tidak
+          </Button>
+          <Button
+            onClick={(reportId)=>changeButton(props.id)}
+            color="primary"
+            autoFocus
+          >
+            Ya
+          </Button>
+        </DialogActions>
+      </Dialog>
       </Grid>
     </Fragment>
   );

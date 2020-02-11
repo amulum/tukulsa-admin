@@ -2,6 +2,7 @@ import createStore from "unistore";
 import axios from "axios";
 
 const initialState = {
+  isLoading: true,
   isLoggedIn: false,
   listAllTransactions: [],
   listAllReport: []
@@ -53,6 +54,7 @@ export const actions = store => ({
       });
   },
   handleChangeReport: async (state, report_id, report_status) => {
+    await store.setState({isLoading : true})
     let dataChange = {
       report_id,
       report_status

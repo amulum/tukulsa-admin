@@ -9,13 +9,30 @@ import { connect } from "unistore/react";
 import { actions } from "../store/store";
 
 class Report extends Component {
-  componentDidMount = () => {
+  state = {
+    listAllReport : []
+  }
+
+  refreshReport = async () => {
+    await this.props.getAllReport();
+    await this.setState({listAllReport: this.props.listAllReport})
+    }
+  componentDidMount = async () => {
     console.log("masuk Notifications");
     console.log("thi props mathc", this.props);
-    this.props.getAllReport();
+    this.refreshReport()
   };
+  handleChangeReport = async (reportId) => {
+    console.log('report id dari button', reportId);
+    await this.props.handleChangeReport(reportId, "BELUM DISELESAIKAN");
+    // await this.props.handleChangeReport(reportId, "SELESAI");
+    await this.refreshReport()
+    };
   render() {
-    const oke = <TableReport listAllReport={this.props.listAllReport} />;
+    const oke = <TableReport
+    listAllReport={this.state.listAllReport}
+    handleChangeReport={this.handleChangeReport}
+    />;
     return (
       <Fragment>
         <MiniDrawer />
@@ -61,4 +78,4 @@ class Report extends Component {
   }
 }
 
-export default connect("listAllReport", actions)(withRouter(Report));
+export default connect("listAllReport, isLoading", actions)(withRouter(Report));
