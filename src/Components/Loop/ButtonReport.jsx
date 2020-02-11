@@ -3,6 +3,7 @@ import { connect } from 'unistore/react'
 import { actions } from '../../store/store'
 import { withRouter } from 'react-router-dom'
 import { makeStyles, Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core'
+import { DesktopWindows } from '@material-ui/icons'
 // ICONS
 
 let variantButton, colorButton
@@ -17,11 +18,13 @@ function ButtonReport (props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleChangeReport = () => {
+  const handleChangeReport = async () => {
     console.log(props)
-    setOpen(false)
-    props.handleChangeReport(props.id, "SELESAI")
-    props.history.push('/report')
+    await setOpen(false)
+    await props.handleChangeReport(props.id, "BELUM DISELESAIKAN")
+    // await props.handleChangeReport(props.id, "SELESAI")
+    await props.history.push('/report')
+    // window.location.reload()
   }
   if (props.status === 'BELUM DISELESAIKAN') {
     variantButton = "contained"
