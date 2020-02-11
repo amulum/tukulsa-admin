@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Summary = (props) => {
-  return(
-    <div>ini summary</div>
-  )
-}
+const Summary = props => {
+  return <div>ini summary</div>;
+};
 
-export default Summary
+export default Summary;
