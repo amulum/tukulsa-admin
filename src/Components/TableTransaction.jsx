@@ -109,6 +109,6 @@ const TableTransaction = props => {
 };
 
 export default connect(
-  "listAllTransactions",
+  "isLoading",
   actions
 )(withRouter(TableTransaction));

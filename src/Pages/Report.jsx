@@ -7,7 +7,7 @@ import BoxElement from "../Components/BoxElement";
 import TableReport from "../Components/TableReport";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
-import FilterBy from "../Components/FilterBy";
+import FilterBy from "../Components/ReportFilterBy";
 
 class Report extends Component {
   state = {

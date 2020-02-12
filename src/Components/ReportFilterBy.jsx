@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function FilterBy(props) {
+function ReportFilterBy(props) {
   const classes = useStyles();
   const [status, setStatus] = useState('');
   const inputLabel = React.useRef(null);
@@ -35,12 +35,12 @@ function FilterBy(props) {
   };
   return (
     <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel} id={`${props.id}`}>
-          {props.title}
+        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+          Status Laporan
         </InputLabel>
         <Select
-          labelId={`${props.id}`}
-          id={`${props.id}`}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
           value={status}
           onChange={handleChange}
           labelWidth={labelWidth}
@@ -48,14 +48,11 @@ function FilterBy(props) {
           <MenuItem value="">
             <em>SEMUA</em>
           </MenuItem>
-          {props.listFilter.map((item,key) => {
-            return (
-              <MenuItem value={item}>{item}</MenuItem>
-            )
-          })}
+          <MenuItem value={"SELESAI"}>SELESAI</MenuItem>
+          <MenuItem value={"BELUM DISELESAIKAN"}>BELUM DISELESAIKAN</MenuItem>
         </Select>
       </FormControl>
   )
 }
 
-export default connect("reportStatus", actions) (withRouter(FilterBy))
+export default connect("reportStatus", actions) (withRouter(ReportFilterBy))
