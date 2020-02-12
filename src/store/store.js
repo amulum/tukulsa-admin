@@ -5,7 +5,8 @@ const initialState = {
   isLoading: true,
   isLoggedIn: false,
   listAllTransactions: [],
-  listAllReport: []
+  listAllReport: [],
+  reportStatus: ''
 };
 export const store = createStore(initialState);
 
@@ -64,7 +65,7 @@ export const actions = store => ({
       url: `${apiPath}/admin/report`,
       data: dataChange
     };
-    console.log("cek req admin transactions", req);
+    console.log("cek req handleChangeReport", req);
     const self = store;
     await axios(req)
       .then(response => {
@@ -103,11 +104,13 @@ export const actions = store => ({
         console.log("masuk error", error);
       });
   },
-  getAllReport: async state => {
-    console.log("masuk get user transac");
+  getAllReport: async (state, status) => {
+    console.log("masuk get all report", status);
+    let dataStatus = status? status: ''
+    // let dataStatus = 'SELESAI'
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/report`
+      url: `${apiPath}/admin/report?report_status=${dataStatus}`
     };
     console.log("cek req admin report", req);
     const self = store;

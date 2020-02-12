@@ -17,10 +17,10 @@ import {
 
 const useStyles = makeStyles(theme => ({
   status: {
-    padding: "0.6em"
+    padding: "0.4em"
   },
   padding: {
-    padding: "0.6em",
+    padding: "0.4em",
     fontWeight: "400"
   }
 }));
@@ -53,26 +53,36 @@ function RowTable(props) {
   }
   return (
     <Fragment>
-      <Grid
-        item
-        xs={1}
-        className={classes.status}
-        style={{ textAlign: "center" }}
-      >
-        {props.id}
-      </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2}>
         <Typography
-          variant="subtitle2"
+          variant="body2"
+          className={classes.padding}
+          style={{ textAlign: "center", alignItems: "center" }}
+        >
+          {props.date.slice(0, -14)}
+        </Typography>
+      </Grid>
+      <Grid item xs={1}>
+        <Typography
+          variant="body2"
+          className={classes.padding}
+          style={{ textAlign: "center", alignItems: "center" }}
+        >
+          {props.date.slice(-14, -6)}
+        </Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography
+          variant="body2"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.orderId}
         </Typography>
       </Grid>
-      <Grid item xs={5}>
+      <Grid item xs={4}>
         <Typography
-          variant="subtitle2"
+          variant="body2"
           className={classes.padding}
           style={{ textAlign: "justify" }}
         >
@@ -90,7 +100,7 @@ function RowTable(props) {
         color={colorButton}
         onClick={handleClickOpen}
       >
-        <Typography variant="subtitle2">{props.status}</Typography>
+        <Typography variant="body2">{props.status}</Typography>
       </Button>
       <Dialog
         open={open}
