@@ -28,6 +28,8 @@ class Transactions extends Component {
   componentDidMount = async () => {
     await this.props.getAllTransactions();
     await this.setState({ listAllTransactions : this.props.listAllTransactions})
+    await setTimeout(this.setState({isLoading: this.props.isLoading}), 5000)
+
   };
   handleFilterPayment = (status) => {
     this.setState({paymentStatus : status})
@@ -57,6 +59,7 @@ class Transactions extends Component {
     }
     const oke = <TableTransaction 
         listAllTransactions={filteredTransactions}
+        isLoading={this.state.isLoading}
       />;
     return (
       <Fragment>

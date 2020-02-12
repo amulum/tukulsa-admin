@@ -13,7 +13,8 @@ const useStyles = makeStyles({
   },
   padding: {
     padding: "0.4em",
-    backgroundColor: "#d7e5ec"
+    borderBottom: "2px solid #306854",
+    marginBottom: "0.4em"
   }
 });
 
@@ -75,7 +76,7 @@ const TableReport = props => {
             className={classes.padding}
             style={{ textAlign: "center", fontWeight: "600" }}
           >
-            REPORT
+            KELUHAN
           </Typography>
         </Grid>
         <Grid item xs={3}>

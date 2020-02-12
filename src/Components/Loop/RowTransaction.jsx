@@ -31,7 +31,7 @@ function RowTransaction(props) {
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          {props.date.slice(0, -14)}
+          {props.date.slice(0, -6)}
         </Typography>
       </Grid>
       <Grid item xs={1}>
@@ -40,7 +40,7 @@ function RowTransaction(props) {
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          {props.date.slice(-14, -6)}
+          {props.date.slice(16)}
         </Typography>
       </Grid>
       <Grid item xs={3}>
