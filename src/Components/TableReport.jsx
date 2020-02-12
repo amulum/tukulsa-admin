@@ -1,32 +1,33 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Grid,
-  Typography
-} from "@material-ui/core";
-import LoadingRow from "./Loop/LoadingRow"
-import RowTransactions from "./Loop/RowTransaction"
+import {  Typography, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
+import RowReport from "./Loop/RowReport";
+import LoadingRow from "./Loop/LoadingRow";
 
 const useStyles = makeStyles({
+  table: {
+    width: "100%"
+  },
   padding: {
     padding: "0.4em",
+    backgroundColor: "#d7e5ec"
   }
 });
 
-const TableTransaction = props => {
+const TableReport = props => {
   const classes = useStyles();
-  const loopRow = props.listAllTransactions.map((item, key) => {
+  const loopRow = props.listAllReport.map((item, key) => {
     return (
-      <RowTransactions
+      <RowReport
         key={key}
+        id={item.id}
         orderId={item.order_id}
+        report={item.text}
         date={item.created_at}
-        orderStatus={item.order_status}
-        paymentStatus={item.payment_status}
-        nominal= {item.label}
+        status={item.status}
         handleChangeReport={props.handleChangeReport}
       />
     );
@@ -39,6 +40,7 @@ const TableTransaction = props => {
         direction="row"
         justify="center"
         alignItems="center"
+        component="box"
       >
         <Grid item xs={2}>
           <Typography
@@ -58,7 +60,7 @@ const TableTransaction = props => {
             JAM
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography
             variant="subtitle1"
             className={classes.padding}
@@ -67,31 +69,22 @@ const TableTransaction = props => {
             ORDER ID
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <Typography
             variant="subtitle1"
             className={classes.padding}
             style={{ textAlign: "center", fontWeight: "600" }}
           >
-            NOMINAL
+            REPORT
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Typography
             variant="subtitle1"
             className={classes.padding}
             style={{ textAlign: "center", fontWeight: "600" }}
           >
-            PEMBAYARAN
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
-            ORDER
+            STATUS
           </Typography>
         </Grid>
         {props.isLoading ? (
@@ -108,7 +101,4 @@ const TableTransaction = props => {
   );
 };
 
-export default connect(
-  "isLoading",
-  actions
-)(withRouter(TableTransaction));
+export default connect("listAllReport", actions)(withRouter(TableReport));
