@@ -13,6 +13,8 @@ import { actions } from "../store/store";
 const useStyles = makeStyles({
   padding: {
     padding: "0.4em",
+    borderBottom: "2px solid #306854",
+    marginBottom: "0.4em"
   }
 });
 
@@ -96,9 +98,9 @@ const TableTransaction = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow />
-            <LoadingRow />
-            <LoadingRow />
+            <LoadingRow listLoading={[2,1,3,2,2,2]} />
+            <LoadingRow listLoading={[2,1,3,2,2,2]} />
+            <LoadingRow listLoading={[2,1,3,2,2,2]} />
           </Fragment>
         ) : (
           loopRow
@@ -109,6 +111,6 @@ const TableTransaction = props => {
 };
 
 export default connect(
-  "isLoading",
+  "",
   actions
 )(withRouter(TableTransaction));

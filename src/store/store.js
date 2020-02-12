@@ -11,7 +11,6 @@ const initialState = {
   totalPenjualan: 0,
   totalProfit: 0,
   listSuccessTransactions: [],
-  isLoading: true,
   balancePulsa: 0,
   reportStatus: ''
 };
@@ -89,6 +88,7 @@ export const actions = store => ({
       });
   },
   getAllTransactions: async state => {
+    await store.setState({isLoading : true})
     console.log("masuk get user transac");
     const req = await {
       method: "get",
