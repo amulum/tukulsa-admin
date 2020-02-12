@@ -2,6 +2,7 @@ import createStore from "unistore";
 import axios from "axios";
 
 const initialState = {
+  isLoading: true,
   isLoggedIn: false,
   listAllTransactions: [],
   listAllReport: [],
@@ -11,7 +12,8 @@ const initialState = {
   totalProfit: 0,
   listSuccessTransactions: [],
   isLoading: true,
-  balancePulsa: 0
+  balancePulsa: 0,
+  reportStatus: ''
 };
 export const store = createStore(initialState);
 
@@ -60,6 +62,7 @@ export const actions = store => ({
       });
   },
   handleChangeReport: async (state, report_id, report_status) => {
+    await store.setState({isLoading : true})
     let dataChange = {
       report_id,
       report_status
@@ -69,7 +72,7 @@ export const actions = store => ({
       url: `${apiPath}/admin/report`,
       data: dataChange
     };
-    console.log("cek req admin transactions", req);
+    console.log("cek req handleChangeReport", req);
     const self = store;
     await axios(req)
       .then(response => {
@@ -108,11 +111,13 @@ export const actions = store => ({
         console.log("masuk error", error);
       });
   },
-  getAllReport: async state => {
-    console.log("masuk get user transac");
+  getAllReport: async (state, status) => {
+    console.log("masuk get all report", status);
+    let dataStatus = status? status: ''
+    // let dataStatus = 'SELESAI'
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/report`
+      url: `${apiPath}/admin/report?report_status=${dataStatus}`
     };
     console.log("cek req admin report", req);
     const self = store;

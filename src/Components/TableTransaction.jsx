@@ -1,74 +1,109 @@
 import React, { Fragment } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  Grid,
   Typography
 } from "@material-ui/core";
+import LoadingRow from "./Loop/LoadingRow"
+import RowTransactions from "./Loop/RowTransaction"
 import { withRouter } from "react-router-dom";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
 
-const StyledTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: "#cde5ee",
-    color: theme.palette.common.black
-  },
-  body: {
-    fontSize: 14
-  }
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
-    }
-  }
-}))(TableRow);
-
 const useStyles = makeStyles({
-  table: {
-    width: "100%"
+  padding: {
+    padding: "0.4em",
   }
 });
 
 const TableTransaction = props => {
   const classes = useStyles();
-
+  const loopRow = props.listAllTransactions.map((item, key) => {
+    return (
+      <RowTransactions
+        key={key}
+        orderId={item.order_id}
+        date={item.created_at}
+        orderStatus={item.order_status}
+        paymentStatus={item.payment_status}
+        nominal= {item.label}
+        handleChangeReport={props.handleChangeReport}
+      />
+    );
+  });
   return (
     <Fragment>
-      <Typography>Transactions</Typography>
-
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell>ORDER ID</StyledTableCell>
-              <StyledTableCell>NOMOR</StyledTableCell>
-              <StyledTableCell>PEMBAYARAN</StyledTableCell>
-              <StyledTableCell>ORDER</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.listAllTransactions.map((item, key) => (
-              <StyledTableRow key={key}>
-                <StyledTableCell>{item.id}</StyledTableCell>
-                <StyledTableCell>{item.order_id}</StyledTableCell>
-                <StyledTableCell>{item.phone_number}</StyledTableCell>
-                <StyledTableCell>{item.payment_status}</StyledTableCell>
-                <StyledTableCell>{item.order_status}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Grid
+        style={{ maxWidth: "100vw" }}
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item xs={2}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            TANGGAL
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            JAM
+          </Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            ORDER ID
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            NOMINAL
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            PEMBAYARAN
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography
+            variant="subtitle1"
+            className={classes.padding}
+            style={{ textAlign: "center", fontWeight: "600" }}
+          >
+            ORDER
+          </Typography>
+        </Grid>
+        {props.isLoading ? (
+          <Fragment>
+            <LoadingRow />
+            <LoadingRow />
+            <LoadingRow />
+          </Fragment>
+        ) : (
+          loopRow
+        )}
+      </Grid>
     </Fragment>
   );
 };
