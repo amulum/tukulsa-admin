@@ -6,10 +6,6 @@ import Title from "./Title";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 const useStyles = makeStyles(theme => ({
   depositContext: {
     flex: 1
@@ -21,25 +17,33 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  center: {
+    textAlign: "center"
   }
 }));
 
-export default function Balances() {
+export default function Balances(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid className={classes.center} item xs={12}>
+          <Title>Ringkasan Penjualan</Title>
+        </Grid>
+      </Grid>
       <Grid container spacing={3}>
         <Grid item xs>
           <Paper className={classes.paper}>
             <Title>Saldo MobilePulsa</Title>
             <Typography component="p" variant="h4" color="Primary">
-              $3,024.00
+              Rp {props.balancePulsa}
             </Typography>
             <Typography
               color="textSecondary"
               className={classes.depositContext}
             >
-              on 15 March, 2019
+              Hari Ini
             </Typography>
           </Paper>
         </Grid>
@@ -47,13 +51,13 @@ export default function Balances() {
           <Paper className={classes.paper}>
             <Title>Total Penjualan</Title>
             <Typography component="p" variant="h4" color="Primary">
-              Rp 3,024.00
+              {props.totalPenjualan}
             </Typography>
             <Typography
               color="textSecondary"
               className={classes.depositContext}
             >
-              on 15 March, 2019
+              {props.periode}
             </Typography>
           </Paper>
         </Grid>
@@ -61,13 +65,13 @@ export default function Balances() {
           <Paper className={classes.paper}>
             <Title>Total Transaksi</Title>
             <Typography component="p" variant="h4" color="Primary">
-              21
+              {props.totalTransaksi}
             </Typography>
             <Typography
               color="textSecondary"
               className={classes.depositContext}
             >
-              on 15 March, 2019
+              {props.periode}
             </Typography>
           </Paper>
         </Grid>

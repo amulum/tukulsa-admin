@@ -4,7 +4,14 @@ import axios from "axios";
 const initialState = {
   isLoggedIn: false,
   listAllTransactions: [],
-  listAllReport: []
+  listAllReport: [],
+  DashboardPeriod: 30,
+  totalTransaksi: 0,
+  totalPenjualan: 0,
+  totalProfit: 0,
+  listSuccessTransactions: [],
+  isLoading: true,
+  balancePulsa: 0
 };
 export const store = createStore(initialState);
 
@@ -126,23 +133,59 @@ export const actions = store => ({
   },
   getFilterTransactions: async (state, days) => {
     console.log("masuk get user transac");
-    let filterData = {
-      days
-    };
     const req = await {
       method: "get",
       url: `${apiPath}/admin/transaction/filterby`,
-      data: filterData
+      data: {
+        days_ago: days
+      }
     };
     console.log("cek req filter transactions", req);
     const self = store;
     await axios(req)
       .then(response => {
+        let totalPenjualan = response.data.total_transaction;
+        totalPenjualan = totalPenjualan
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        let totalProfit = response.data.total_profit;
+        totalProfit = totalProfit
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         self.setState({
-          listAllTransactions: response.data,
+          listAllTransactions: response.data.transaction,
+          totalTransaksi: response.data.total_transaction_number,
+          totalPenjualan: totalPenjualan,
+          totalProfit: totalProfit,
+          listSuccessTransactions: response.data.detail_success_transaction,
           isLoading: false
         });
         console.log("masuk then", response.data);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log("masuk error", error);
+      });
+  },
+  getBalanceMobilePulsa: async state => {
+    const req = await {
+      method: "get",
+      url: `${apiPath}/admin/balancepulsa`
+    };
+    const self = store;
+    await axios(req)
+      .then(response => {
+        let balancePulsa = response.data.balance.data.balance;
+        balancePulsa = balancePulsa
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        self.setState({
+          isLoading: false,
+          balancePulsa: balancePulsa
+        });
+        console.log("masuk then", response);
       })
       .catch(error => {
         self.setState({
