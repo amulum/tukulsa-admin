@@ -1,56 +1,137 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "unistore/react";
+import { actions } from "../store/store";
+import { store } from "../store/store";
 import MiniDrawer from "../Components/Layout/MiniDrawer";
 import { Typography } from "@material-ui/core";
 import "../App.css";
-import Summary from "../Components/Summary";
-import BoxElement from "../Components/BoxElement";
+import Balances from "../Components/Balance";
+import Chart from "../Components/Chart";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    display: "block",
+    marginTop: theme.spacing(2)
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120
+  }
+}));
+function ControlledOpenSelect(props) {
+  const classes = useStyles();
+  const [age, setAge] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const getTransactionsByDay = days => {
+    console.log("masuk get user transac");
+    const req = {
+      method: "get",
+      url: `https://tukulsa.site/admin/transaction/filterby`,
+      data: {
+        days_ago: days
+      }
+    };
+    console.log("cek req filter transactions", req);
+    const self = store;
+    axios(req)
+      .then(response => {
+        let totalPenjualan = response.data.total_transaction;
+        totalPenjualan = totalPenjualan
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        let totalProfit = response.data.total_profit;
+        totalProfit = totalProfit
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        self.setState({
+          listAllTransactions: response.data.transaction,
+          totalTransaksi: response.data.total_transaction_number,
+          totalPenjualan: totalPenjualan,
+          totalProfit: totalProfit,
+          listSuccessTransactions: response.data.detail_success_transaction,
+          isLoading: false
+        });
+        console.log("masuk then", response.data);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log("masuk error", error);
+      });
+  };
+
+  const handleChange = event => {
+    setAge(event.target.value);
+    store.setState({ DashboardPeriod: event.target.value });
+    getTransactionsByDay(event.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  return (
+    <div style={{ margin: "0 0 0 auto" }}>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-controlled-open-select-label">Periode</InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value={7}>7 Hari Terakhir</MenuItem>
+          <MenuItem value={30}>30 Hari Terakhir</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
 class Dashboard extends Component {
-  compornentDidMount = () => {
-    this.props.getFilterTransactions(30);
+  componentDidMount = () => {
+    this.props.getFilterTransactions(this.props.DashboardPeriod);
+    this.props.getBalanceMobilePulsa();
     console.log("did mount", this.props.listAllTransactions);
   };
   render() {
-    const oke = <Summary Transactions={this.props.listAllTransactions} />;
     return (
       <Fragment>
         <MiniDrawer />
         {/* Content begin here */}
-        <main style={{ padding: "1.5em", paddingTop: "8%", flexGrow: "1" }}>
-          <Typography variant="h5">Dashboard</Typography>
-          <BoxElement value={oke} />
-          <p>{JSON.stringify(this.props.listAllTransactions)}</p>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
+        <main style={{ padding: "1.5em", paddingTop: "8%", width: "100%" }}>
+          <Grid container direction="row">
+            <Typography
+              variant="h5"
+              style={{ marginTop: "auto", marginBottom: "auto" }}
+            >
+              Dashboard
+            </Typography>
+            <ControlledOpenSelect />
+          </Grid>
+          <Balances
+            periode={this.props.DashboardPeriod + " Hari Terakhir"}
+            totalPenjualan={`Rp ${this.props.totalPenjualan}`}
+            totalTransaksi={this.props.totalTransaksi}
+            balancePulsa={this.props.balancePulsa}
+          />
+          <Chart />
         </main>
         {/* EOF content */}
       </Fragment>
@@ -58,4 +139,7 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+export default connect(
+  "DashboardPeriod, totalPenjualan, totalTransaksi, listSuccessTransactions, balancePulsa, listAllTransaction, isLoading, totalProfit",
+  actions
+)(withRouter(Dashboard));

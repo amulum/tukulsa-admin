@@ -2,9 +2,18 @@ import createStore from "unistore";
 import axios from "axios";
 
 const initialState = {
+  isLoading: true,
   isLoggedIn: false,
   listAllTransactions: [],
-  listAllReport: []
+  listAllReport: [],
+  DashboardPeriod: 30,
+  totalTransaksi: 0,
+  totalPenjualan: 0,
+  totalProfit: 0,
+  listSuccessTransactions: [],
+  isLoading: true,
+  balancePulsa: 0,
+  reportStatus: ''
 };
 export const store = createStore(initialState);
 
@@ -53,6 +62,7 @@ export const actions = store => ({
       });
   },
   handleChangeReport: async (state, report_id, report_status) => {
+    await store.setState({isLoading : true})
     let dataChange = {
       report_id,
       report_status
@@ -62,7 +72,7 @@ export const actions = store => ({
       url: `${apiPath}/admin/report`,
       data: dataChange
     };
-    console.log("cek req admin transactions", req);
+    console.log("cek req handleChangeReport", req);
     const self = store;
     await axios(req)
       .then(response => {
@@ -101,11 +111,13 @@ export const actions = store => ({
         console.log("masuk error", error);
       });
   },
-  getAllReport: async state => {
-    console.log("masuk get user transac");
+  getAllReport: async (state, status) => {
+    console.log("masuk get all report", status);
+    let dataStatus = status? status: ''
+    // let dataStatus = 'SELESAI'
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/report`
+      url: `${apiPath}/admin/report?report_status=${dataStatus}`
     };
     console.log("cek req admin report", req);
     const self = store;
@@ -126,23 +138,59 @@ export const actions = store => ({
   },
   getFilterTransactions: async (state, days) => {
     console.log("masuk get user transac");
-    let filterData = {
-      days
-    };
     const req = await {
       method: "get",
       url: `${apiPath}/admin/transaction/filterby`,
-      data: filterData
+      data: {
+        days_ago: days
+      }
     };
     console.log("cek req filter transactions", req);
     const self = store;
     await axios(req)
       .then(response => {
+        let totalPenjualan = response.data.total_transaction;
+        totalPenjualan = totalPenjualan
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        let totalProfit = response.data.total_profit;
+        totalProfit = totalProfit
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         self.setState({
-          listAllTransactions: response.data,
+          listAllTransactions: response.data.transaction,
+          totalTransaksi: response.data.total_transaction_number,
+          totalPenjualan: totalPenjualan,
+          totalProfit: totalProfit,
+          listSuccessTransactions: response.data.detail_success_transaction,
           isLoading: false
         });
         console.log("masuk then", response.data);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log("masuk error", error);
+      });
+  },
+  getBalanceMobilePulsa: async state => {
+    const req = await {
+      method: "get",
+      url: `${apiPath}/admin/balancepulsa`
+    };
+    const self = store;
+    await axios(req)
+      .then(response => {
+        let balancePulsa = response.data.balance.data.balance;
+        balancePulsa = balancePulsa
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        self.setState({
+          isLoading: false,
+          balancePulsa: balancePulsa
+        });
+        console.log("masuk then", response);
       })
       .catch(error => {
         self.setState({
