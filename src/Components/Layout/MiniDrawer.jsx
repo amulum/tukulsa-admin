@@ -111,7 +111,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    fontFamily: "antipasto_prodemibold"
+    fontFamily: "antipasto_prodemibold",
   },
   wrapBar: {
     flexGrow: 1
@@ -182,7 +182,7 @@ function MiniDrawer(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap className={classes.title}>
+            <Typography variant="h5" noWrap className={classes.title}>
               Tukulsa Admin
             </Typography>
             {/* icon button */}
