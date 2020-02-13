@@ -28,6 +28,9 @@ export default function ControlledOpenSelect(props) {
       url: `https://tukulsa.site/admin/transaction/filterby`,
       data: {
         days_ago: days
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     };
     const self = store;
