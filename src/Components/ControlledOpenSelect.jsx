@@ -28,6 +28,9 @@ export default function ControlledOpenSelect(props) {
       url: `https://tukulsa.site/admin/transaction/filterby`,
       data: {
         days_ago: days
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     };
     const self = store;
@@ -90,7 +93,6 @@ export default function ControlledOpenSelect(props) {
           onChange={handleChange}
           labelWidth={labelWidth}
         >
-          <MenuItem value={1}>1 Hari Terakhir</MenuItem>
           <MenuItem value={3}>3 Hari Terakhir</MenuItem>
           <MenuItem value={7}>7 Hari Terakhir</MenuItem>
           <MenuItem value={30}>30 Hari Terakhir</MenuItem>

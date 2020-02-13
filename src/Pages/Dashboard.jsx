@@ -23,7 +23,7 @@ class Dashboard extends Component {
     this.setState({isLoadingPenjualan : this.props.isLoadingPenjualan})
   };
   render() {
-    const data = generateData(this.props.listSuccessTransactions);
+    const data = generateData(this.props.listSuccessTransactions, this.props.DashboardPeriod);
     if (localStorage.getItem('token')=== null) {
       return (
         <Redirect to="/"/>
