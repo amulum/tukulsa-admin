@@ -79,7 +79,10 @@ export const actions = store => ({
     const req = await {
       method: "put",
       url: `${apiPath}/admin/report`,
-      data: dataChange
+      data: dataChange,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     };
     console.log("cek req handleChangeReport", req);
     const self = store;
@@ -102,7 +105,10 @@ export const actions = store => ({
     console.log("masuk get user transac");
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/transaction/list`
+      url: `${apiPath}/admin/transaction/list`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     };
     console.log("cek req admin transactions", req);
     const self = store;
@@ -126,7 +132,10 @@ export const actions = store => ({
     let dataStatus = status? status: ''
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/report?report_status=${dataStatus}`
+      url: `${apiPath}/admin/report?report_status=${dataStatus}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     };
     console.log("cek req admin report", req);
     const self = store;
@@ -134,6 +143,33 @@ export const actions = store => ({
       .then(response => {
         self.setState({
           listAllReport: response.data,
+          isLoading: false
+        });
+        console.log("masuk then", response.data);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log("masuk error", error);
+      });
+  },
+  getAllProduct: async (state) => {
+    await store.setState({isLoading: true})
+    console.log("masuk get all product")
+    const req = await {
+      method: "get",
+      url: `${apiPath}/admin/product/list`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    };
+    console.log("cek req admin product", req);
+    const self = store;
+    await axios(req)
+      .then(response => {
+        self.setState({
+          listAllProduct: response.data,
           isLoading: false
         });
         console.log("masuk then", response.data);
@@ -153,6 +189,9 @@ export const actions = store => ({
       url: `${apiPath}/admin/transaction/filterby`,
       data: {
         days_ago: days
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     };
     console.log("cek req filter transactions", req);
@@ -188,7 +227,10 @@ export const actions = store => ({
     await store.setState({ isLoadingModal: true })
     const req = await {
       method: "get",
-      url: `${apiPath}/admin/balancepulsa`
+      url: `${apiPath}/admin/balancepulsa`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     };
     const self = store;
     await axios(req)

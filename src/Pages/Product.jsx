@@ -25,11 +25,15 @@ class Product extends Component {
       "SUKSES",
       "BELUM DIPROSES"
     ],
-    listAllTransactions: []
+    listAllTransactions: [],
+    listAllProduct: []
   };
   componentDidMount = async () => {
+    await this.props.getAllProduct()
+    console.log('listproduct did mount', this.props.listAllProduct)
     await this.props.getAllTransactions();
     await this.setState({ listAllTransactions : this.props.listAllTransactions})
+    await this.setState({ listAllProduct : this.props.listAllProduct})
     await setTimeout(this.setState({isLoading: this.props.isLoading}), 5000)
 
   };
@@ -116,6 +120,8 @@ class Product extends Component {
               </Grid>
             </Grid>
             <BoxElement value={oke} />
+            <span>{this.state.listAllProduct}</span>
+            <p></p>
           </main>
           {/* EOF content */}
         </Fragment>
@@ -125,6 +131,6 @@ class Product extends Component {
 }
 
 export default connect(
-  "listAllTransactions",
+  "listAllTransactions, listAllProduct", 
   actions
 )(withRouter(Product));
