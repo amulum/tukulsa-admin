@@ -182,7 +182,7 @@ function MiniDrawer(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5" noWrap className={classes.title}>
+            <Typography variant="h4" noWrap className={classes.title}>
               Tukulsa Admin
             </Typography>
             {/* icon button */}

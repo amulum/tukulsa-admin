@@ -16,20 +16,16 @@ const LoadingRow = props => {
     }
   });
   const classes = useStyles();
+  const loopLoadingRow = props.listLoading.map((item, key)=>{
+    return (
+      <Grid item xs={item} className={classes.cell}>
+        <Skeleton animation="wave" className={classes.skeleton} />
+      </Grid>
+    )
+  })
   return (
     <Fragment>
-      <Grid item xs={1} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-      <Grid item xs={3} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-      <Grid item xs={5} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-      <Grid item xs={3} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
+      {loopLoadingRow}
     </Fragment>
   );
 };

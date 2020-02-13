@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "./Title";
@@ -16,7 +15,10 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    borderRadius: "10px",
+    border: "1.3px solid #306854",
+    boxShadow: "1px 0px 6px 3px rgba(224,234,236,0.74)"
   },
   center: {
     textAlign: "center"
@@ -35,7 +37,7 @@ export default function Balances(props) {
       <Grid container spacing={3}>
         <Grid item xs>
           <Paper className={classes.paper}>
-            <Title>Saldo MobilePulsa</Title>
+            <Title>Modal</Title>
             <Typography component="p" variant="h4" color="Primary">
               Rp {props.balancePulsa}
             </Typography>
