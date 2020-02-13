@@ -10,17 +10,16 @@ import TableTransaction from "../Components/TableTransaction";
 import FilterBy from "../Components/FilterBy"
 import SearchBar from "../Components/SearchBar"
 
-class Transactions extends Component {
+class Product extends Component {
   state = {
     isLoading: true,
     paymentStatus : '',
     orderStatus: '',
     word: '',
     listStatusPembayaran: [
-      "LUNAS",
       "TERTUNDA",
-      "BELUM DIBAYAR",
-      "KADALUWARSA"
+      "LUNAS",
+      "BELUM DIBAYAR"
     ],
     listStatusOrder: [
       "SUKSES",
@@ -88,7 +87,7 @@ class Transactions extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center" spacing={2}>
               <Grid item xs={3} >
-                <Typography variant="h5">Transaction</Typography>
+                <Typography variant="h5">Product</Typography>
               </Grid>
               <Grid item xs={3}>
                 <SearchBar 
@@ -128,4 +127,4 @@ class Transactions extends Component {
 export default connect(
   "listAllTransactions",
   actions
-)(withRouter(Transactions));
+)(withRouter(Product));
