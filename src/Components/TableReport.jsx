@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   padding: {
     padding: "0.4em",
     borderBottom: "2px solid #306854",
-    marginBottom: "0.4em"
+    marginBottom: "0.4em",
   }
 });
 
@@ -90,9 +90,9 @@ const TableReport = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow />
-            <LoadingRow />
-            <LoadingRow />
+            <LoadingRow listLoading={[2,1,2,4,3]} />
+            <LoadingRow listLoading={[2,1,2,4,3]} />
+            <LoadingRow listLoading={[2,1,2,4,3]} />
           </Fragment>
         ) : (
           loopRow

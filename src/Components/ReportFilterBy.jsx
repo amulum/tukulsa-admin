@@ -30,7 +30,6 @@ function ReportFilterBy(props) {
   const filterStatus = props.handleFilterStatus
   const handleChange = async (event) => {
     await setStatus(event.target.value);
-    console.log('status di handlechange',event.target.value)
     await filterStatus(event.target.value)
   };
   return (

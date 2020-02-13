@@ -3,7 +3,10 @@ import axios from "axios";
 
 const initialState = {
   isLoading: true,
+  isLoadingPenjualan: true,
+  isLoadingModal: true,
   isLoggedIn: false,
+  loginReport: false,
   listAllTransactions: [],
   listAllReport: [],
   DashboardPeriod: 30,
@@ -46,10 +49,17 @@ export const actions = store => ({
     const self = store;
     await axios(req)
       .then(response => {
-        self.setState({
-          isLoading: false,
-          isLoggedIn: true
-        });
+        if (security.length === 32) {
+          self.setState({
+            loginReport: true,
+            isLoading: false
+          })
+        } else {
+          self.setState({
+            isLoading: false,
+            isLoggedIn: true
+          })
+        }
         localStorage.setItem("token", response.data.token);
         console.log("masuk then", response.data);
       })
@@ -114,7 +124,6 @@ export const actions = store => ({
   getAllReport: async (state, status) => {
     console.log("masuk get all report", status);
     let dataStatus = status? status: ''
-    // let dataStatus = 'SELESAI'
     const req = await {
       method: "get",
       url: `${apiPath}/admin/report?report_status=${dataStatus}`
@@ -137,6 +146,7 @@ export const actions = store => ({
       });
   },
   getFilterTransactions: async (state, days) => {
+    await store.setState({ isLoadingPenjualan: true })
     console.log("masuk get user transac");
     const req = await {
       method: "get",
@@ -163,18 +173,19 @@ export const actions = store => ({
           totalPenjualan: totalPenjualan,
           totalProfit: totalProfit,
           listSuccessTransactions: response.data.detail_success_transaction,
-          isLoading: false
+          isLoadingPenjualan: false
         });
         console.log("masuk then", response.data);
       })
       .catch(error => {
         self.setState({
-          isLoading: false
+          isLoadingPenjualan: false
         });
         console.log("masuk error", error);
       });
   },
   getBalanceMobilePulsa: async state => {
+    await store.setState({ isLoadingModal: true })
     const req = await {
       method: "get",
       url: `${apiPath}/admin/balancepulsa`
@@ -187,14 +198,14 @@ export const actions = store => ({
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         self.setState({
-          isLoading: false,
+          isLoadingModal: false,
           balancePulsa: balancePulsa
         });
         console.log("masuk then", response);
       })
       .catch(error => {
         self.setState({
-          isLoading: false
+          isLoadingModal: false
         });
         console.log("masuk error", error);
       });
