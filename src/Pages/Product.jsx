@@ -6,20 +6,22 @@ import MiniDrawer from "../Components/Layout/MiniDrawer";
 import { Typography, Grid } from "@material-ui/core";
 import "../App.css";
 import BoxElement from "../Components/BoxElement";
-import TableTransaction from "../Components/TableTransaction";
 import FilterBy from "../Components/FilterBy"
 import SearchBar from "../Components/SearchBar"
+import TableProduct from "../Components/TableProduct";
 
 class Product extends Component {
   state = {
     isLoading: true,
-    paymentStatus : '',
-    orderStatus: '',
+    operator: '',
     word: '',
-    listStatusPembayaran: [
-      "TERTUNDA",
-      "LUNAS",
-      "BELUM DIBAYAR"
+    listOperator: [
+      "Telkomsel",
+      "Indosat",
+      "XL",
+      "Three",
+      "AXIS",
+      "Smart"
     ],
     listStatusOrder: [
       "SUKSES",
@@ -28,56 +30,42 @@ class Product extends Component {
     listAllTransactions: [],
     listAllProduct: []
   };
+  refreshReport = async () => {
+    await this.props.getAllProduct();
+    await this.setState({listAllProduct: this.props.listAllProduct})
+  }
   componentDidMount = async () => {
     await this.props.getAllProduct()
     console.log('listproduct did mount', this.props.listAllProduct)
-    await this.props.getAllTransactions();
-    await this.setState({ listAllTransactions : this.props.listAllTransactions})
-    await this.setState({ listAllProduct : this.props.listAllProduct})
+    await this.setState({listAllProduct: this.props.listAllProduct})
     await setTimeout(this.setState({isLoading: this.props.isLoading}), 5000)
 
   };
-  handleFilterPayment = (status) => {
-    this.setState({paymentStatus : status})
+  handleFilterOperator = (status) => {
+    this.setState({operator : status})
   }
-  handleFilterOrder = (status) => {
-    this.setState({orderStatus : status})
-  }
-  handleSearchBar = async (keyword) => {
-    await this.setState({word: keyword})
+  handleChangePrice = async (productId, price) => {
+    console.log('cek product id di pages',productId)
+    console.log('cek price baru di pages', price)
+    await this.props.editProductPrice(productId, price)
+    await this.refreshReport()
   }
   // butuh handlefilterstatus, id, title, listFilter
   render() {
-    const { listAllTransactions, paymentStatus, orderStatus, word } = this.state
-    let filteredTransactions = listAllTransactions
-    if (paymentStatus !== ""){
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (item.payment_status === paymentStatus) {
+    const { listAllProduct, operator } = this.state
+    let filteredProduct = listAllProduct
+    if (operator !== ""){
+      filteredProduct = filteredProduct.filter(item => {
+        if (item.operator === operator) {
             return item;
         }
         return false;
       });
     }
-    if (orderStatus !== ""){
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (item.order_status === orderStatus) {
-            return item;
-        }
-        return false;
-      });
-    }
-    if (word !== ""){
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (new RegExp(word).test(item.order_id.toLowerCase())) {
-          return item;
-        } else {
-          return false;
-        }
-      });
-    }
-    const oke = <TableTransaction 
-        listAllTransactions={filteredTransactions}
+    const oke = <TableProduct 
+        listAllProduct={filteredProduct}
         isLoading={this.state.isLoading}
+        handleChangePrice={this.handleChangePrice}
       />;
     if (localStorage.getItem('token')=== null) {
       return (
@@ -90,38 +78,21 @@ class Product extends Component {
           {/* Content begin here */}
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center" spacing={2}>
-              <Grid item xs={3} >
+              <Grid item xs={9} >
                 <Typography variant="h5">Product</Typography>
               </Grid>
-              <Grid item xs={3}>
-                <SearchBar 
-                  handleSearchbar={this.handleSearchBar}
-                />
-              </Grid>
               <Grid item xs={3} >
                 <Grid container justify="space-around" direction="row" alignItems="center">
                   <FilterBy 
-                    id="status-pembayaran"
-                    title="STATUS PEMBAYARAN"
-                    handleFilterStatus={this.handleFilterPayment}
-                    listFilter={this.state.listStatusPembayaran}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={3} >
-                <Grid container justify="space-around" direction="row" alignItems="center">
-                  <FilterBy 
-                    id="status-order"
-                    title="STATUS ORDER"
-                    handleFilterStatus={this.handleFilterOrder}
-                    listFilter={this.state.listStatusOrder}
+                    id="operator"
+                    title="OPERATOR"
+                    handleFilterStatus={this.handleFilterOperator}
+                    listFilter={this.state.listOperator}
                   />
                 </Grid>
               </Grid>
             </Grid>
             <BoxElement value={oke} />
-            <span>{this.state.listAllProduct}</span>
-            <p></p>
           </main>
           {/* EOF content */}
         </Fragment>

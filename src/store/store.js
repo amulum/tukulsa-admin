@@ -251,5 +251,36 @@ export const actions = store => ({
         });
         console.log("masuk error", error);
       });
+  },
+  editProductPrice: async (state, product_id, price) => {
+    store.setState({isLoading : true})
+    let dataEdit = {
+      product_id,
+      price
+    }
+    const req = await {
+      method: "put",
+      url: `${apiPath}/admin/product/edit`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      data : dataEdit
+    };
+    console.log('cek req edit product price', req)
+    const self = store;
+    await axios(req)
+      .then(response => {
+        self.setState({
+          isLoading: false,
+        });
+        console.log("masuk then", response);
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log("masuk error", error);
+      });
   }
 });

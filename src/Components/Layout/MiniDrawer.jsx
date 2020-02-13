@@ -50,10 +50,6 @@ const listIcon = [
 ];
 const listIconBottom = [
   {
-    name: "Settings",
-    value: <SettingsIcon />
-  },
-  {
     name: "Logout",
     value: <ExitToAppIcon />
   }
