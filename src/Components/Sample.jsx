@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Sample = (props) => {
-  return (
-    <div>ini sample</div>
-  )
-}
+const Sample = props => {
+  return <div>ini sample</div>;
+};
 
-export default Sample
+export default Sample;
