@@ -8,12 +8,14 @@ import "../App.css";
 import BoxElement from "../Components/BoxElement";
 import TableTransaction from "../Components/TableTransaction";
 import FilterBy from "../Components/FilterBy"
+import SearchBar from "../Components/SearchBar"
 
 class Transactions extends Component {
   state = {
     isLoading: true,
     paymentStatus : '',
     orderStatus: '',
+    word: '',
     listStatusPembayaran: [
       "TERTUNDA",
       "LUNAS",
@@ -37,9 +39,14 @@ class Transactions extends Component {
   handleFilterOrder = (status) => {
     this.setState({orderStatus : status})
   }
+  handleSearchBar = async (keyword) => {
+    console.log('keyword dari component', keyword)
+    await this.setState({word: keyword})
+    console.log('state keyword', this.state.word)
+  }
   // butuh handlefilterstatus, id, title, listFilter
   render() {
-    const { listAllTransactions, paymentStatus, orderStatus } = this.state
+    const { listAllTransactions, paymentStatus, orderStatus, word } = this.state
     let filteredTransactions = listAllTransactions
     if (paymentStatus !== ""){
       filteredTransactions = filteredTransactions.filter(item => {
@@ -57,6 +64,18 @@ class Transactions extends Component {
         return false;
       });
     }
+    if (word !== ""){
+      filteredTransactions = filteredTransactions.filter(item => {
+        console.log('if condition',new RegExp(word).test(item.order_id.toLowerCase()))
+        if (new RegExp(word).test(item.order_id.toLowerCase())) {
+          console.log('string found')
+          return item;
+        } else {
+          console.log('masuk else')
+          return false;
+        }
+      });
+    }
     const oke = <TableTransaction 
         listAllTransactions={filteredTransactions}
         isLoading={this.state.isLoading}
@@ -67,8 +86,13 @@ class Transactions extends Component {
         {/* Content begin here */}
         <main style={{ padding: "1.5em", paddingTop: "8%", width: "100%" }}>
           <Grid container justify="space-between" alignItems="center" spacing={2}>
-            <Grid item xs={6} >
+            <Grid item xs={3} >
               <Typography variant="h5">Transaction</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <SearchBar 
+                handleSearchbar={this.handleSearchBar}
+              />
             </Grid>
             <Grid item xs={3} >
               <Grid container justify="space-around" direction="row" alignItems="center">
