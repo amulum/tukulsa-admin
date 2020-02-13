@@ -1,9 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import { Typography, Grid, Paper, makeStyles } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab"
 import Title from "./Title";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
   depositContext: {
@@ -18,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     borderRadius: "10px",
     border: "1.3px solid #306854",
-    boxShadow: "1px 0px 6px 3px rgba(224,234,236,0.74)"
+    boxShadow: "1px 0px 6px 3px rgba(224,234,236,0.74)",
   },
   center: {
     textAlign: "center"
@@ -34,13 +32,19 @@ export default function Balances(props) {
           <Title>Ringkasan Penjualan</Title>
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justify="center">
         <Grid item xs>
           <Paper className={classes.paper}>
-            <Title>Modal</Title>
-            <Typography component="p" variant="h4" color="Primary">
-              Rp {props.balancePulsa}
-            </Typography>
+            <Title>Sisa Asset</Title>
+            {props.isLoadingModal?
+              <div style={{display: "flex", justifyContent:"center"}}>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+              </div>
+            :
+              <Typography component="p" variant="h4" color="Primary">
+                Rp {props.balancePulsa}
+              </Typography>
+            }
             <Typography
               color="textSecondary"
               className={classes.depositContext}
@@ -52,9 +56,15 @@ export default function Balances(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
             <Title>Total Penjualan</Title>
-            <Typography component="p" variant="h4" color="Primary">
-              {props.totalPenjualan}
-            </Typography>
+            {props.isLoadingPenjualan?
+              <div style={{display: "flex", justifyContent:"center"}}>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+              </div>
+            :
+              <Typography component="p" variant="h4" color="Primary">
+                {props.totalPenjualan}
+              </Typography>
+            }
             <Typography
               color="textSecondary"
               className={classes.depositContext}
@@ -66,9 +76,15 @@ export default function Balances(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
             <Title>Total Transaksi</Title>
-            <Typography component="p" variant="h4" color="Primary">
-              {props.totalTransaksi}
-            </Typography>
+            {props.isLoadingPenjualan?
+              <div style={{display: "flex", justifyContent:"center"}}>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+              </div>
+            :
+              <Typography component="p" variant="h4" color="Primary">
+                {props.totalTransaksi}
+              </Typography>
+            }
             <Typography
               color="textSecondary"
               className={classes.depositContext}

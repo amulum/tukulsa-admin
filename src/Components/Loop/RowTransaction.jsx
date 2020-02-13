@@ -19,10 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 function RowTransaction(props) {
-  console.log('id',props.id)
-  console.log('report',props.report)
   const classes = useStyles();
-  console.log('propsdi rowtable',props)
   return (
     <Fragment>
       <Grid item xs={2}>

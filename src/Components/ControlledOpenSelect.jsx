@@ -23,7 +23,6 @@ export default function ControlledOpenSelect(props) {
   const [open, setOpen] = React.useState(false);
 
   const getTransactionsByDay = days => {
-    console.log("masuk get user transac");
     const req = {
       method: "get",
       url: `https://tukulsa.site/admin/transaction/filterby`,
@@ -31,7 +30,6 @@ export default function ControlledOpenSelect(props) {
         days_ago: days
       }
     };
-    console.log("cek req filter transactions", req);
     const self = store;
     axios(req)
       .then(response => {
@@ -51,13 +49,11 @@ export default function ControlledOpenSelect(props) {
           listSuccessTransactions: response.data.detail_success_transaction,
           isLoading: false
         });
-        console.log("masuk then", response.data);
       })
       .catch(error => {
         self.setState({
           isLoading: false
         });
-        console.log("masuk error", error);
       });
   };
 
