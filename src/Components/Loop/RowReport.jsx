@@ -26,8 +26,6 @@ const useStyles = makeStyles(theme => ({
 }));
 let variantButton, colorButton;
 function RowTable(props) {
-  console.log('id',props.id)
-  console.log('report',props.report)
   const [open, setOpen] = useState(false)
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,17 +37,15 @@ function RowTable(props) {
   const classes = useStyles();
   const changeReport = props.handleChangeReport
   const changeButton = async (reportId) => {
-    console.log('test changereport', changeReport)
     changeReport(reportId)
     setOpen(false)
   }
-  console.log('propsdi rowtable',props)
   if (props.status === "BELUM DISELESAIKAN") {
     variantButton = "contained";
     colorButton = "secondary";
   } else {
-    variantButton = "contained";
-    colorButton = "disabled";
+    variantButton = "disabled";
+    colorButton = "secondary";
   }
   return (
     <Fragment>

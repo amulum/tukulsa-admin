@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import "../../App.css";
+import { store } from "../../store/store"
 // ICONS
 import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -25,6 +26,7 @@ import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import WarningIcon from "@material-ui/icons/Warning";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
+import SimCardIcon from '@material-ui/icons/SimCard';
 import { withRouter } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -38,9 +40,13 @@ const listIcon = [
     value: <LocalAtmIcon />
   },
   {
+    name: "Product",
+    value: <SimCardIcon />
+  },
+  {
     name: "Report",
     value: <WarningIcon />
-  }
+  },
 ];
 const listIconBottom = [
   {
@@ -138,11 +144,6 @@ function MiniDrawer(props) {
   // Icon button
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openIcon = Boolean(anchorEl);
-  // const [auth, setAuth] = React.useState(true);
-  // const handleChange = event => {
-  //   setAuth(event.target.checked);
-  // };
-
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -151,13 +152,12 @@ function MiniDrawer(props) {
     setAnchorEl(null);
   };
   const handleChangePages = pages => {
-    console.log("props di mini drawer", props);
     pages = pages.toLowerCase();
-    console.log("kiriamn dari child", pages);
     props.history.push(`/${pages}`);
   };
   const handleLogout = async () => {
     await localStorage.removeItem("token");
+    await store.setState({isLoggedIn: false})
     await props.history.push("/");
   };
   return (

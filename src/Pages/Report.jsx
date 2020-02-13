@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import MiniDrawer from "../Components/Layout/MiniDrawer";
 import { Typography, Grid } from "@material-ui/core";
 import "../App.css";
@@ -7,12 +7,16 @@ import BoxElement from "../Components/BoxElement";
 import TableReport from "../Components/TableReport";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
-import FilterBy from "../Components/ReportFilterBy";
+import FilterBy from "../Components/FilterBy";
 
 class Report extends Component {
   state = {
     listAllReport : [],
-    reportStatus: ''
+    reportStatus: '',
+    listStatusReport: [
+      "SELESAI",
+      "BELUM DISELESAIKAN"
+    ]
   }
 
   refreshReport = async () => {
@@ -50,26 +54,37 @@ class Report extends Component {
     listAllReport={filteredReport}
     handleChangeReport={this.handleChangeReport}
     />;
-    return (
-      <Fragment>
-        <MiniDrawer />
-        {/* Content begin here */}
-        <main style={{ padding: "1.5em", paddingTop: "8%", width: "100%" }}>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item xs={9} >
-              <Typography variant="h5">Report</Typography>
-            </Grid>
-            <Grid item xs={3} >
-              <Grid container justify="space-around" direction="row" alignItems="center">
-                <FilterBy handleFilterStatus={this.handleFilterStatus}/>
+    if (localStorage.getItem('token')=== null) {
+      return (
+        <Redirect to="/"/>
+      )
+    } else {
+      return (
+        <Fragment>
+          <MiniDrawer />
+          {/* Content begin here */}
+          <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
+            <Grid container justify="space-between" alignItems="center">
+              <Grid item xs={9} >
+                <Typography variant="h5">Report</Typography>
+              </Grid>
+              <Grid item xs={3} >
+                <Grid container justify="space-around" direction="row" alignItems="center">
+                  <FilterBy 
+                    id="status-laporan"
+                    title="STATUS LAPORAN"
+                    handleFilterStatus={this.handleFilterStatus}
+                    listFilter={this.state.listStatusReport}
+                  />
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <BoxElement value={oke} />
-        </main>
-        {/* EOF content */}
-      </Fragment>
-    );
+            <BoxElement value={oke} />
+          </main>
+          {/* EOF content */}
+        </Fragment>
+      );
+    }
   }
 }
 

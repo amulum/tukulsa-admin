@@ -44,10 +44,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar(props) {
   const classes = useStyles()
-  console.log('props di searchbar', props)
   const handleSearch = props.handleSearchbar
   const handleChange = async (event) => {
-    console.log('event di handleChange',event.target.value)
     await handleSearch(event.target.value)
   }
   return (
