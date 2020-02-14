@@ -25,7 +25,6 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import WarningIcon from "@material-ui/icons/Warning";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import SettingsIcon from "@material-ui/icons/Settings";
 import SimCardIcon from '@material-ui/icons/SimCard';
 import { withRouter } from "react-router-dom";
 

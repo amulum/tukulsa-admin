@@ -21,7 +21,13 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400"
+    fontWeight: "400",
+    textAlign: "center", 
+    alignItems: "center",
+    color: "#1b4144",
+    // fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    fontFamily: "Oxygen",
   }
 }));
 let variantButton, colorButton;
@@ -51,34 +57,31 @@ function RowTable(props) {
     <Fragment>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.date.slice(0, -14)}
         </Typography>
       </Grid>
       <Grid item xs={1}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.date.slice(-14, -6)}
         </Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.orderId}
         </Typography>
       </Grid>
       <Grid item xs={4}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "justify" }}
         >
@@ -96,7 +99,7 @@ function RowTable(props) {
         color={colorButton}
         onClick={handleClickOpen}
       >
-        <Typography variant="body2">{props.status}</Typography>
+        <Typography variant="body1" style={{fontFamily: "Cabin", fontWeight: "500"}}>{props.status}</Typography>
       </Button>
       <Dialog
         open={open}

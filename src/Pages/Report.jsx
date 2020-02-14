@@ -66,7 +66,12 @@ class Report extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={9} >
-                <Typography variant="h5">Report</Typography>
+              <Typography
+                variant="h4"
+                style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
+              >
+                Report
+              </Typography>
               </Grid>
               <Grid item xs={3} >
                 <Grid container justify="space-around" direction="row" alignItems="center">
