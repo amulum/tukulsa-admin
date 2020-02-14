@@ -1,57 +1,91 @@
-import React, { Component, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
-import MiniDrawer from '../Components/Layout/MiniDrawer'
-import { Typography } from '@material-ui/core'
-import '../App.css'
-import BoxElement from '../Components/BoxElement'
+import React, { Component, Fragment } from "react";
+import { withRouter, Redirect } from "react-router-dom";
+import MiniDrawer from "../Components/Layout/MiniDrawer";
+import { Typography, Grid } from "@material-ui/core";
+import "../App.css";
+import BoxElement from "../Components/BoxElement";
+import TableReport from "../Components/TableReport";
+import { connect } from "unistore/react";
+import { actions } from "../store/store";
+import FilterBy from "../Components/FilterBy";
 
-const oke = 'ini dari notifi'
 class Report extends Component {
-  componentDidMount = () => {
-    console.log('masuk Notifications')
-    console.log('thi props mathc', this.props)
+  state = {
+    listAllReport : [],
+    reportStatus: '',
+    listStatusReport: [
+      "SELESAI",
+      "BELUM DISELESAIKAN"
+    ]
+  }
+
+  refreshReport = async () => {
+    await this.props.getAllReport(this.state.reportStatus);
+    await this.setState({listAllReport: this.props.listAllReport})
+    }
+  componentDidMount = async () => {
+    await this.setState({ reportStatus: this.props.reportStatus})
+    await this.refreshReport()
+  };
+  handleChangeReport = async (reportId) => {
+    // await this.props.handleChangeReport(reportId, "BELUM DISELESAIKAN");
+    await this.props.handleChangeReport(reportId, "SELESAI");
+    await this.refreshReport()
+    };
+  handleFilterStatus = async (status) => {
+    await this.setState({reportStatus : status})
+    await this.props.getAllReport(status);
+    await this.setState({listAllReport: this.props.listAllReport})
   }
   render() {
-    return (
-      <Fragment >
-      <MiniDrawer
-      />
-      {/* Content begin here */}
-      <main  style={{padding:'1.5em', paddingTop:'8%', flexGrow:'1'}}>
-        <Typography variant="h5" >
-          Report
-        </Typography>
-        <BoxElement
-          value ={oke}
-        />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </main>
-      {/* EOF content */}
-    </Fragment>
-    )
+    const { listAllReport, reportStatus } = this.state
+    let filteredReport
+    if (reportStatus !== ""){
+      filteredReport = listAllReport.filter(item => {
+        if (item.status !== reportStatus) {
+            return item;
+        }
+        return false;
+      });
+    } else {
+      filteredReport = listAllReport
+    }
+    const oke = <TableReport
+    listAllReport={filteredReport}
+    handleChangeReport={this.handleChangeReport}
+    />;
+    if (localStorage.getItem('token')=== null) {
+      return (
+        <Redirect to="/"/>
+      )
+    } else {
+      return (
+        <Fragment>
+          <MiniDrawer />
+          {/* Content begin here */}
+          <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
+            <Grid container justify="space-between" alignItems="center">
+              <Grid item xs={9} >
+                <Typography variant="h5">Report</Typography>
+              </Grid>
+              <Grid item xs={3} >
+                <Grid container justify="space-around" direction="row" alignItems="center">
+                  <FilterBy 
+                    id="status-laporan"
+                    title="STATUS LAPORAN"
+                    handleFilterStatus={this.handleFilterStatus}
+                    listFilter={this.state.listStatusReport}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <BoxElement value={oke} />
+          </main>
+          {/* EOF content */}
+        </Fragment>
+      );
+    }
   }
 }
 
-export default (withRouter(Report))
+export default connect("listAllReport, isLoading, reportStatus", actions)(withRouter(Report));
