@@ -35,16 +35,6 @@ export default function Balances(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid className={classes.center} item xs={12} style={{margin: "0.4em auto 0.4em"}}>
-        <Typography
-          variant="h4"
-          style={{ fontFamily: "Cabin", fontWeight: "400", color: "#306854" }}
-        >
-          Ringkasan Penjualan
-        </Typography>
-        </Grid>
-      </Grid>
       <Grid container spacing={3} justify="center">
         <Grid item xs>
           <Paper className={classes.paper}>
