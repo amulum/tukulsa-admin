@@ -28,15 +28,18 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    fontFamily: "Cabin"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
+    fontFamily: "Cabin",
     [theme.breakpoints.up('sm')]: {
       width: 120,
       '&:focus': {
         width: 200,
+        fontFamily: "Cabin",
       },
     },
   },
@@ -51,10 +54,10 @@ export default function SearchBar(props) {
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
-        <SearchIcon />
+        <SearchIcon color="secondary"/>
       </div>
       <InputBase
-        placeholder="Search…"
+        placeholder="ORDER ID"
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,

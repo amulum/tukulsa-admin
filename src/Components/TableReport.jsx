@@ -15,6 +15,12 @@ const useStyles = makeStyles({
     padding: "0.4em",
     borderBottom: "2px solid #306854",
     marginBottom: "0.4em",
+    textAlign: "center",
+    fontWeight: "700",
+    color: "#1b4144",
+    fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    // fontFamily: "Oxygen",
   }
 });
 
@@ -45,45 +51,40 @@ const TableReport = props => {
       >
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             TANGGAL
           </Typography>
         </Grid>
         <Grid item xs={1}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             JAM
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             ORDER ID
           </Typography>
         </Grid>
         <Grid item xs={4}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             KELUHAN
           </Typography>
         </Grid>
         <Grid item xs={3}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             STATUS
           </Typography>

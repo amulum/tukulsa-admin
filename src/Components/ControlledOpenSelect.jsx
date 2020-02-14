@@ -14,7 +14,10 @@ const useStyles = makeStyles(theme => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: "90%"
+  },
+  cabin : {
+    fontFamily: "Cabin"
   }
 }));
 export default function ControlledOpenSelect(props) {
@@ -82,7 +85,7 @@ export default function ControlledOpenSelect(props) {
   return (
     <div style={{ margin: "0 0 0 auto" }}>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel}id="demo-controlled-open-select-label">Periode</InputLabel>
+        <InputLabel ref={inputLabel}id="demo-controlled-open-select-label" className={classes.cabin}>PERIODE</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -92,10 +95,11 @@ export default function ControlledOpenSelect(props) {
           value={age}
           onChange={handleChange}
           labelWidth={labelWidth}
+          fullWidth
         >
-          <MenuItem value={3}>3 Hari Terakhir</MenuItem>
-          <MenuItem value={7}>7 Hari Terakhir</MenuItem>
-          <MenuItem value={30}>30 Hari Terakhir</MenuItem>
+          <MenuItem value={3} className={classes.cabin}>3 Hari Terakhir</MenuItem>
+          <MenuItem value={7} className={classes.cabin}>7 Hari Terakhir</MenuItem>
+          <MenuItem value={30} className={classes.cabin}>30 Hari Terakhir</MenuItem>
         </Select>
       </FormControl>
     </div>
