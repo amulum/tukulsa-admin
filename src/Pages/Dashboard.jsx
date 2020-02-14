@@ -37,13 +37,17 @@ class Dashboard extends Component {
             {/* Content begin here */}
             <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
               <Grid container direction="row">
-                <Typography
-                  variant="h4"
-                  style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
-                >
-                  Dashboard
-                </Typography>
-                <ControlledOpenSelect />
+                <Grid item xs={10} >
+                  <Typography
+                    variant="h4"
+                    style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
+                  >
+                    Dashboard
+                  </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ControlledOpenSelect />
+                </Grid>
               </Grid>
               <Balances
                 periode={this.props.DashboardPeriod + " Hari Terakhir"}
