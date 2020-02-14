@@ -8,6 +8,8 @@ import TableReport from "../Components/TableReport";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
 import FilterBy from "../Components/FilterBy";
+import PaginationControlled from "../Components/Pagination";
+
 
 class Report extends Component {
   state = {
@@ -16,7 +18,8 @@ class Report extends Component {
     listStatusReport: [
       "SELESAI",
       "BELUM DISELESAIKAN"
-    ]
+    ],
+    selectedPage: 1
   }
 
   refreshReport = async () => {
@@ -37,8 +40,19 @@ class Report extends Component {
     await this.props.getAllReport(status);
     await this.setState({listAllReport: this.props.listAllReport})
   }
+  handlePagination = async (page) => {
+    await this.setState({ selectedPage : page})
+  }
   render() {
-    const { listAllReport, reportStatus } = this.state
+    const { listAllReport, reportStatus, selectedPage } = this.state
+    let topIndex, bottomIndex
+    if (selectedPage === 1) {
+      topIndex = 10
+      bottomIndex = 0
+    } else {
+      topIndex = (selectedPage*10)
+      bottomIndex = (selectedPage*10) - 10
+    }
     let filteredReport
     if (reportStatus !== ""){
       filteredReport = listAllReport.filter(item => {
@@ -51,7 +65,7 @@ class Report extends Component {
       filteredReport = listAllReport
     }
     const oke = <TableReport
-    listAllReport={filteredReport}
+    listAllReport={filteredReport.slice(bottomIndex, topIndex)}
     handleChangeReport={this.handleChangeReport}
     />;
     if (localStorage.getItem('token')=== null) {
@@ -85,6 +99,11 @@ class Report extends Component {
               </Grid>
             </Grid>
             <BoxElement value={oke} />
+            <Grid Container justify="flex-end">
+              <Grid item xs={12}>
+                <PaginationControlled handlePagination={this.handlePagination} lengthPages={Math.ceil(filteredReport.length/10)}/>
+              </Grid>
+            </Grid>
           </main>
           {/* EOF content */}
         </Fragment>

@@ -54,7 +54,6 @@ class Product extends Component {
   handlePagination = async (page) => {
     await this.setState({ selectedPage : page})
   }
-  // butuh handlefilterstatus, id, title, listFilter
   render() {
     const { listAllProduct, operator, selectedPage } = this.state
     let topIndex, bottomIndex
