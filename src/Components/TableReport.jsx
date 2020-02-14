@@ -2,8 +2,6 @@ import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {  Typography, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { connect } from "unistore/react";
-import { actions } from "../store/store";
 import RowReport from "./Loop/RowReport";
 import LoadingRow from "./Loop/LoadingRow";
 
@@ -26,6 +24,7 @@ const useStyles = makeStyles({
 });
 
 const TableReport = props => {
+  console.log('filtered report di dalem table', props.listAllReport)
   const classes = useStyles();
   const loopRow = props.listAllReport.map((item, key) => {
     return (
@@ -95,6 +94,7 @@ const TableReport = props => {
             <LoadingRow listLoading={[2,1,2,4,3]} />
             <LoadingRow listLoading={[2,1,2,4,3]} />
             <LoadingRow listLoading={[2,1,2,4,3]} />
+            <LoadingRow listLoading={[2,1,2,4,3]} />
           </Fragment>
         ) : (
           loopRow
@@ -104,4 +104,4 @@ const TableReport = props => {
   );
 };
 
-export default connect("listAllReport", actions)(withRouter(TableReport));
+export default (withRouter(TableReport));

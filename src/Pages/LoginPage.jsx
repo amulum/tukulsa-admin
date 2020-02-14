@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Login from "../Components/Login";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
@@ -6,7 +6,7 @@ import { withRouter, Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
   state= {
-    isReport: false
+    isReport: false,
   }
   componentWillMount = async () => {
     let security = await this.props.match.params.code;
@@ -33,7 +33,9 @@ class LoginPage extends Component {
   render() {
     if (this.state.isReport) {
       return (
-        <Redirect to="/report"/>
+        <Fragment>
+          <Redirect to="/report"/>
+        </Fragment>
       )
     }
     else if (localStorage.getItem('token')) {
@@ -41,7 +43,11 @@ class LoginPage extends Component {
         <Redirect to="/dashboard"/>
       )
     } else {
-      return <Login handleSubmit={this.handleSubmitForm} />;
+      return (
+        <Fragment>
+        <Login handleSubmit={this.handleSubmitForm} />
+        </Fragment>
+      )
     }
   }
 }
