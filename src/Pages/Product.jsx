@@ -9,6 +9,7 @@ import BoxElement from "../Components/BoxElement";
 import FilterBy from "../Components/FilterBy"
 import SearchBar from "../Components/SearchBar"
 import TableProduct from "../Components/TableProduct";
+import PaginationRounded from "../Components/Pagination"
 
 class Product extends Component {
   state = {
@@ -93,6 +94,7 @@ class Product extends Component {
               </Grid>
             </Grid>
             <BoxElement value={oke} />
+            <PaginationRounded />
           </main>
           {/* EOF content */}
         </Fragment>

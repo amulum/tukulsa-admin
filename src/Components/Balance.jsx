@@ -27,11 +27,11 @@ export default function Balances(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         <Grid className={classes.center} item xs={12}>
           <Title>Ringkasan Penjualan</Title>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid container spacing={3} justify="center">
         <Grid item xs>
           <Paper className={classes.paper}>

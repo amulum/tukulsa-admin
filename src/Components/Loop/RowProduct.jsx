@@ -114,7 +114,8 @@ function RowProduct(props) {
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          {props.price}
+          Rp {props.price.toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </Typography>
       </Grid>
       <Grid item xs={1}>
