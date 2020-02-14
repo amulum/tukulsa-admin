@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  cabin : {
+    fontFamily: "Cabin"
+  }
 }));
 
 function FilterBy(props) {
@@ -34,7 +37,7 @@ function FilterBy(props) {
   };
   return (
     <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel} id={`${props.id}`}>
+        <InputLabel ref={inputLabel} id={`${props.id}`} className={classes.cabin}>
           {props.title}
         </InputLabel>
         <Select
@@ -43,13 +46,14 @@ function FilterBy(props) {
           value={status}
           onChange={handleChange}
           labelWidth={labelWidth}
+          className={classes.cabin}
         >
-          <MenuItem value="">
+          <MenuItem value="" className={classes.cabin}>
             <em>SEMUA</em>
           </MenuItem>
           {props.listFilter.map((item,key) => {
             return (
-              <MenuItem value={item}>{item}</MenuItem>
+              <MenuItem value={item} className={classes.cabin}>{item}</MenuItem>
             )
           })}
         </Select>

@@ -24,7 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400"
+    fontWeight: "400",
+    textAlign: "center", 
+    alignItems: "center",
+    color: "#1b4144",
+    // fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    fontFamily: "Oxygen",
   }
 }));
 function RowProduct(props) {
@@ -65,7 +71,7 @@ function RowProduct(props) {
     <Fragment>
       <Grid item xs={1}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -74,7 +80,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -83,7 +89,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -92,7 +98,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -101,7 +107,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -110,7 +116,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body1"
+          variant="subtitle1"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >

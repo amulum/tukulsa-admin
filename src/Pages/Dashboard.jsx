@@ -11,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import generateData from '../utils/generateData';
 import ControlledOpenSelect from '../Components/ControlledOpenSelect';
 
+
+
 class Dashboard extends Component {
   state = {
     isLoadingModal: true,
@@ -36,8 +38,8 @@ class Dashboard extends Component {
             <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
               <Grid container direction="row">
                 <Typography
-                  variant="h5"
-                  style={{ marginTop: "auto", marginBottom: "auto" }}
+                  variant="h4"
+                  style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
                 >
                   Dashboard
                 </Typography>

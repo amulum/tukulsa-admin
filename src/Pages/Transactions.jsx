@@ -88,7 +88,12 @@ class Transactions extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center" spacing={2}>
               <Grid item xs={3} >
-                <Typography variant="h5">Transaction</Typography>
+              <Typography
+                variant="h4"
+                style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
+              >
+                Transactions
+              </Typography>
               </Grid>
               <Grid item xs={3}>
                 <SearchBar 

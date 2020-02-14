@@ -7,7 +7,6 @@ import { Typography, Grid } from "@material-ui/core";
 import "../App.css";
 import BoxElement from "../Components/BoxElement";
 import FilterBy from "../Components/FilterBy"
-import SearchBar from "../Components/SearchBar"
 import TableProduct from "../Components/TableProduct";
 
 class Product extends Component {
@@ -79,7 +78,12 @@ class Product extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center" spacing={2}>
               <Grid item xs={9} >
-                <Typography variant="h5">Product</Typography>
+              <Typography
+                variant="h4"
+                style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
+              >
+                Product
+              </Typography>
               </Grid>
               <Grid item xs={3} >
                 <Grid container justify="space-around" direction="row" alignItems="center">
