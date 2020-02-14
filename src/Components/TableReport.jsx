@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     borderBottom: "2px solid #306854",
     marginBottom: "0.4em",
     textAlign: "center",
-    fontWeight: "700",
+    fontWeight: "500",
+    fontSize: "1.4em",
     color: "#1b4144",
     fontFamily: "Cabin",
     // fontFamily: "Questrial",
@@ -65,7 +66,7 @@ const TableReport = props => {
             JAM
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Typography
             variant="h6"
             className={classes.padding}
@@ -81,7 +82,7 @@ const TableReport = props => {
             KELUHAN
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography
             variant="h6"
             className={classes.padding}

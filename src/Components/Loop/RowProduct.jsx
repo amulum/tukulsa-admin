@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400",
-    textAlign: "center", 
-    alignItems: "center",
+    fontWeight: "500",
     color: "#1b4144",
     // fontFamily: "Cabin",
     // fontFamily: "Questrial",
     fontFamily: "Oxygen",
+    letterSpacing: "1px",
+    fontSize: "1.1em"
   }
 }));
 function RowProduct(props) {
@@ -67,20 +67,21 @@ function RowProduct(props) {
     await changePrice(productId, price)
     await setOpen(false)
   }
+  console.log('props key', props)
   return (
     <Fragment>
       <Grid item xs={1}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          {props.id}
+          {props.no+1}
         </Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -89,7 +90,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -98,7 +99,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -107,7 +108,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
@@ -116,7 +117,7 @@ function RowProduct(props) {
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >

@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     borderBottom: "2px solid #306854",
     marginBottom: "0.4em",
     textAlign: "center",
-    fontWeight: "700",
+    fontWeight: "500",
+    fontSize: "1.4em",
     color: "#1b4144",
     fontFamily: "Cabin",
     // fontFamily: "Questrial",
@@ -98,6 +99,7 @@ const TableTransaction = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
+            <LoadingRow listLoading={[2,1,3,2,2,2]} />
             <LoadingRow listLoading={[2,1,3,2,2,2]} />
             <LoadingRow listLoading={[2,1,3,2,2,2]} />
             <LoadingRow listLoading={[2,1,3,2,2,2]} />

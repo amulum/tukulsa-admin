@@ -15,13 +15,14 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400",
-    textAlign: "center", 
-    alignItems: "center",
+    fontWeight: "500",
     color: "#1b4144",
+    textAlign: "center",
     // fontFamily: "Cabin",
     // fontFamily: "Questrial",
     fontFamily: "Oxygen",
+    letterSpacing: "1px",
+    fontSize: "1em"
 
   }
 }));
