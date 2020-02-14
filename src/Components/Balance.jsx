@@ -5,21 +5,30 @@ import Title from "./Title";
 
 const useStyles = makeStyles(theme => ({
   depositContext: {
-    flex: 1
+    flex: 1,
+    fontFamily: "Questrial, sans-serif"
   },
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: "1em"
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
     borderRadius: "10px",
-    border: "1.3px solid #306854",
+    border: "1.5px solid #306854",
     boxShadow: "1px 0px 6px 3px rgba(224,234,236,0.74)",
   },
   center: {
     textAlign: "center"
+  },
+  duit : {
+    fontFamily: "Questrial",
+    fontWeight: "500",
+    color: "#e7a127",
+    marginTop: "0.2em",
+    marginBottom: "0.2em",
   }
 }));
 
@@ -27,21 +36,16 @@ export default function Balances(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid className={classes.center} item xs={12}>
-          <Title>Ringkasan Penjualan</Title>
-        </Grid>
-      </Grid>
       <Grid container spacing={3} justify="center">
         <Grid item xs>
           <Paper className={classes.paper}>
             <Title>Sisa Asset</Title>
             {props.isLoadingModal?
               <div style={{display: "flex", justifyContent:"center"}}>
-                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={75}/>
               </div>
             :
-              <Typography component="p" variant="h4" color="Primary">
+              <Typography variant="h3" className={classes.duit}>
                 Rp {props.balancePulsa}
               </Typography>
             }
@@ -58,10 +62,10 @@ export default function Balances(props) {
             <Title>Total Penjualan</Title>
             {props.isLoadingPenjualan?
               <div style={{display: "flex", justifyContent:"center"}}>
-                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={75}/>
               </div>
             :
-              <Typography component="p" variant="h4" color="Primary">
+              <Typography variant="h3" className={classes.duit}>
                 {props.totalPenjualan}
               </Typography>
             }
@@ -78,10 +82,10 @@ export default function Balances(props) {
             <Title>Total Transaksi</Title>
             {props.isLoadingPenjualan?
               <div style={{display: "flex", justifyContent:"center"}}>
-                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={41}/>
+                <Skeleton animation="wave" width="60%" style={{textAlign: "center"}} height={75}/>
               </div>
             :
-              <Typography component="p" variant="h4" color="Primary">
+              <Typography variant="h3" className={classes.duit}>
                 {props.totalTransaksi}
               </Typography>
             }

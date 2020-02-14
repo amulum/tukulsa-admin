@@ -14,16 +14,24 @@ const useStyles = makeStyles({
   padding: {
     padding: "0.4em",
     borderBottom: "2px solid #306854",
-    marginBottom: "0.4em"
+    marginBottom: "0.4em",
+    textAlign: "center",
+    fontWeight: "500",
+    fontSize: "1.4em",
+    color: "#1b4144",
+    fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    // fontFamily: "Oxygen",
   }
 });
 
 const TableProduct = props => {
   const classes = useStyles();
   const loopRow = props.listAllProduct.map((item, key) => {
+    console.log('key', key)
     return (
       <RowProduct
-        key={key}
+        no={key}
         id={item.id}
         operator={item.operator}
         code={item.code}
@@ -45,69 +53,64 @@ const TableProduct = props => {
       >
         <Grid item xs={1}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             NO
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             OPERATOR
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             CODE
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             NOMINAL
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             MASA AKTIF
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             HARGA
           </Typography>
         </Grid>
         <Grid item xs={1}>
           <Typography
-            variant="subtitle1"
+            variant="h6"
             className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
           >
             &nbsp;
           </Typography>
         </Grid>
         {props.isLoading ? (
           <Fragment>
+            <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
+            <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />

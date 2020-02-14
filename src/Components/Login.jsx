@@ -15,9 +15,9 @@ import { actions } from "../store/store";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="subtitle1" align="center" style={{fontFamily: "Oxygen"}}>
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://admin.tukulsa.site/">
         tukulsa.site
       </Link>{" "}
       {new Date().getFullYear()}
@@ -42,7 +42,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
+    fontFamily: "Cabin",
+    fontWeight: "600",
+    fontSize: "1.4em"
   },
   admin: {
     color: "#2d6656",
@@ -68,9 +71,10 @@ function Login(props) {
             required
             fullWidth
             name="security"
-            label="Security Code"
+            label="SECURITY CODE"
             type="password"
             id="security"
+            style={{fontFamily: "Cabin", fontWeight: "500"}}
           />
           <Button
             type="submit"

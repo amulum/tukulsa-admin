@@ -9,6 +9,8 @@ import BoxElement from "../Components/BoxElement";
 import TableTransaction from "../Components/TableTransaction";
 import FilterBy from "../Components/FilterBy"
 import SearchBar from "../Components/SearchBar"
+import PaginationControlled from "../Components/Pagination";
+
 
 class Transactions extends Component {
   state = {
@@ -26,7 +28,8 @@ class Transactions extends Component {
       "SUKSES",
       "BELUM DIPROSES"
     ],
-    listAllTransactions: []
+    listAllTransactions: [],
+    selectedPage: 1
   };
   componentDidMount = async () => {
     await this.props.getAllTransactions();
@@ -43,9 +46,20 @@ class Transactions extends Component {
   handleSearchBar = async (keyword) => {
     await this.setState({word: keyword})
   }
+  handlePagination = async (page) => {
+    await this.setState({ selectedPage : page})
+  }
   // butuh handlefilterstatus, id, title, listFilter
   render() {
-    const { listAllTransactions, paymentStatus, orderStatus, word } = this.state
+    const { listAllTransactions, paymentStatus, orderStatus, word, selectedPage } = this.state
+    let topIndex, bottomIndex
+    if (selectedPage === 1) {
+      topIndex = 10
+      bottomIndex = 0
+    } else {
+      topIndex = (selectedPage*10)
+      bottomIndex = (selectedPage*10) - 10
+    }
     let filteredTransactions = listAllTransactions
     if (paymentStatus !== ""){
       filteredTransactions = filteredTransactions.filter(item => {
@@ -73,7 +87,7 @@ class Transactions extends Component {
       });
     }
     const oke = <TableTransaction 
-        listAllTransactions={filteredTransactions}
+        listAllTransactions={filteredTransactions.slice(bottomIndex, topIndex)}
         isLoading={this.state.isLoading}
       />;
     if (localStorage.getItem('token')=== null) {
@@ -88,7 +102,12 @@ class Transactions extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <Grid container justify="space-between" alignItems="center" spacing={2}>
               <Grid item xs={3} >
-                <Typography variant="h5">Transaction</Typography>
+              <Typography
+                variant="h4"
+                style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
+              >
+                Transactions
+              </Typography>
               </Grid>
               <Grid item xs={3}>
                 <SearchBar 
@@ -117,6 +136,11 @@ class Transactions extends Component {
               </Grid>
             </Grid>
             <BoxElement value={oke} />
+            <Grid Container justify="flex-end">
+              <Grid item xs={12}>
+                <PaginationControlled handlePagination={this.handlePagination} lengthPages={Math.ceil(filteredTransactions.length/10)}/>
+              </Grid>
+            </Grid>
           </main>
           {/* EOF content */}
         </Fragment>

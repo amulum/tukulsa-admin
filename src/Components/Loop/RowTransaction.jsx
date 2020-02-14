@@ -15,7 +15,15 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400"
+    fontWeight: "500",
+    color: "#1b4144",
+    textAlign: "center",
+    // fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    fontFamily: "Oxygen",
+    letterSpacing: "1px",
+    fontSize: "1em"
+
   }
 }));
 function RowTransaction(props) {
@@ -24,54 +32,48 @@ function RowTransaction(props) {
     <Fragment>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.date.slice(0, -6)}
         </Typography>
       </Grid>
       <Grid item xs={1}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.date.slice(16)}
         </Typography>
       </Grid>
       <Grid item xs={3}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.orderId}
         </Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.nominal}
         </Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.paymentStatus}
         </Typography>
       </Grid>
       <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
         >
           {props.orderStatus}
         </Typography>

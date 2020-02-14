@@ -15,7 +15,7 @@ const LeftMenu = props => {
       }
     >
       <ListItemIcon>{item.value}</ListItemIcon>
-      <ListItemText primary={item.name}></ListItemText>
+      <ListItemText style={{fontFamily: "Cabin"}}>{item.name}</ListItemText>
     </ListItem>
   ));
 };
