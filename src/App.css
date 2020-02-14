@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'antipasto_prodemibold';
+  src: url('./fonts/antipasto/antipasto-pro-demibold-webfont.woff2') format('woff2'),
+       url('./fonts/antipasto/antipasto-pro-demibold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+#root  {
+  display: flex;
+}
+
+.antipasto {
+  font-family: 'antipasto_prodemibold', Helvetica, sans-serif;
+}
+
 .App {
   text-align: center;
 }
