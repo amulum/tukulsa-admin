@@ -21,13 +21,15 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400",
+    fontWeight: "500",
     textAlign: "center", 
     alignItems: "center",
     color: "#1b4144",
     // fontFamily: "Cabin",
     // fontFamily: "Questrial",
     fontFamily: "Oxygen",
+    letterSpacing: "1px",
+    fontSize: "1.1em"
   }
 }));
 let variantButton, colorButton;
@@ -57,7 +59,7 @@ function RowTable(props) {
     <Fragment>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
         >
           {props.date.slice(0, -14)}
@@ -65,15 +67,15 @@ function RowTable(props) {
       </Grid>
       <Grid item xs={1}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
         >
           {props.date.slice(-14, -6)}
         </Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
         >
           {props.orderId}
@@ -81,7 +83,7 @@ function RowTable(props) {
       </Grid>
       <Grid item xs={4}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
           style={{ textAlign: "justify" }}
         >
@@ -90,7 +92,7 @@ function RowTable(props) {
       </Grid>
       <Grid
         item
-        xs={3}
+        xs={2}
         className={classes.padding}
         style={{ textAlign: "center" }}
       >

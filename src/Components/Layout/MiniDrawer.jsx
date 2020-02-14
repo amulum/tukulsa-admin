@@ -113,6 +113,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     fontFamily: "antipasto_prodemibold",
+    fontSize: "2.5em",
+    letterSpacing: "1.1px"
   },
   wrapBar: {
     flexGrow: 1

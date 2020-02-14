@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     borderBottom: "2px solid #306854",
     marginBottom: "0.4em",
     textAlign: "center",
-    fontWeight: "700",
+    fontWeight: "500",
+    fontSize: "1.4em",
     color: "#1b4144",
     fontFamily: "Cabin",
     // fontFamily: "Questrial",
@@ -27,9 +28,10 @@ const useStyles = makeStyles({
 const TableProduct = props => {
   const classes = useStyles();
   const loopRow = props.listAllProduct.map((item, key) => {
+    console.log('key', key)
     return (
       <RowProduct
-        key={key}
+        no={key}
         id={item.id}
         operator={item.operator}
         code={item.code}
@@ -107,6 +109,8 @@ const TableProduct = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
+            <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
+            <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />
             <LoadingRow listLoading={[1,2,2,2,2,2,1]} />

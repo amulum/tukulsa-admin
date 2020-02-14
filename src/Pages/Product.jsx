@@ -8,7 +8,7 @@ import "../App.css";
 import BoxElement from "../Components/BoxElement";
 import FilterBy from "../Components/FilterBy"
 import TableProduct from "../Components/TableProduct";
-import PaginationRounded from "../Components/Pagination"
+import PaginationControlled from "../Components/Pagination";
 
 class Product extends Component {
   state = {
@@ -28,7 +28,8 @@ class Product extends Component {
       "BELUM DIPROSES"
     ],
     listAllTransactions: [],
-    listAllProduct: []
+    listAllProduct: [],
+    selectedPage: 1
   };
   refreshReport = async () => {
     await this.props.getAllProduct();
@@ -50,9 +51,22 @@ class Product extends Component {
     await this.props.editProductPrice(productId, price)
     await this.refreshReport()
   }
-  // butuh handlefilterstatus, id, title, listFilter
+  handlePagination = async (page) => {
+    await this.setState({ selectedPage : page})
+  }
   render() {
-    const { listAllProduct, operator } = this.state
+    const { listAllProduct, operator, selectedPage } = this.state
+    let topIndex, bottomIndex
+    if (selectedPage === 1) {
+      topIndex = 10
+      bottomIndex = 0
+    } else {
+      topIndex = (selectedPage*10)
+      bottomIndex = (selectedPage*10) - 10
+    }
+    console.log('page :', selectedPage)
+    console.log('top index :', topIndex)
+    console.log('bottom index :', bottomIndex)
     let filteredProduct = listAllProduct
     if (operator !== ""){
       filteredProduct = filteredProduct.filter(item => {
@@ -63,7 +77,7 @@ class Product extends Component {
       });
     }
     const oke = <TableProduct 
-        listAllProduct={filteredProduct}
+        listAllProduct={filteredProduct.slice(bottomIndex,topIndex)}
         isLoading={this.state.isLoading}
         handleChangePrice={this.handleChangePrice}
       />;
@@ -98,7 +112,11 @@ class Product extends Component {
               </Grid>
             </Grid>
             <BoxElement value={oke} />
-            <PaginationRounded />
+            <Grid Container justify="flex-end">
+              <Grid item xs={12}>
+                <PaginationControlled handlePagination={this.handlePagination} lengthPages={Math.ceil(filteredProduct.length/10)}/>
+              </Grid>
+            </Grid>
           </main>
           {/* EOF content */}
         </Fragment>
