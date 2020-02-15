@@ -20,16 +20,18 @@ class Dashboard extends Component {
     isLoadingPenjualan: true,
     openSnack: false
   }
-  componentDidMount = async () => {
-    await this.props.getFilterTransactions(this.props.DashboardPeriod);
-    await this.props.getBalanceMobilePulsa();
-    this.setState({isLoadingModal : this.props.isLoadingModal})
-    this.setState({isLoadingPenjualan : this.props.isLoadingPenjualan})
+  componentWillMount = () => {
     if (this.props.isFromLogin) {
       console.log('yeay masuk if from login')
       this.setState({openSnack: true})
       store.setState({isFromLogin: false})
     }
+  }
+  componentDidMount = async () => {
+    await this.props.getFilterTransactions(this.props.DashboardPeriod);
+    await this.props.getBalanceMobilePulsa();
+    this.setState({isLoadingModal : this.props.isLoadingModal})
+    this.setState({isLoadingPenjualan : this.props.isLoadingPenjualan})
   };
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -93,6 +95,6 @@ class Dashboard extends Component {
 }
 
 export default connect(
-  "DashboardPeriod, totalPenjualan, totalTransaksi, listSuccessTransactions, balancePulsa, listAllTransaction, isLoading, totalProfit, isLoadingModal, isLoadingPenjualan",
+  "DashboardPeriod, totalPenjualan, totalTransaksi, listSuccessTransactions, balancePulsa, listAllTransaction, isLoading, totalProfit, isLoadingModal, isLoadingPenjualan, isFromLogin",
   actions
 )(withRouter(Dashboard));

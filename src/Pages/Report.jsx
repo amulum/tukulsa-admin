@@ -25,7 +25,13 @@ class Report extends Component {
     selectedPage: 1,
     isLoading: true,
   }
-
+  componentWillMount= async () => {
+    if (this.props.isFromLoginReport) {
+      console.log('yeay masuk if from login')
+      this.setState({openSnack: true})
+      store.setState({isFromLoginReport: false})
+    }
+  }
   refreshReport = async () => {
     await this.props.getAllReport(this.state.reportStatus);
     await this.setState({listAllReport: this.props.listAllReport})
@@ -35,11 +41,6 @@ class Report extends Component {
     await this.setState({ reportStatus: this.props.reportStatus})
     await setTimeout(this.setState({isLoading: this.props.isLoading}), 5000)
     console.log('masuk did mount lagi kah?')
-    if (this.props.isFromLogin) {
-      console.log('yeay masuk if from login')
-      this.setState({openSnack: true})
-      store.setState({isFromLogin: false})
-    }
   };
   handleChangeReport = async (reportId) => {
     // await this.props.handleChangeReport(reportId, "BELUM DISELESAIKAN");
@@ -60,7 +61,7 @@ class Report extends Component {
       return;
     }
     this.setState({openSnack: false});
-    store.setState({isFromLogin: false})
+    store.setState({isFromLoginReport: false})
   };
   render() {
     const message = 
@@ -155,4 +156,4 @@ class Report extends Component {
   }
 }
 
-export default connect("listAllReport, isLoading, reportStatus, isFromLogin", actions)(withRouter(Report));
+export default connect("listAllReport, isLoading, reportStatus, isFromLoginReport", actions)(withRouter(Report));
