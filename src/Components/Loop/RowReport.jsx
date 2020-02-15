@@ -57,28 +57,21 @@ function RowTable(props) {
   }
   return (
     <Fragment>
-      <Grid item xs={2}>
-        <Typography
-          variant="h6"
-          className={classes.padding}
-        >
-          {props.date.slice(0, -14)}
-        </Typography>
-      </Grid>
-      <Grid item xs={1}>
-        <Typography
-          variant="h6"
-          className={classes.padding}
-        >
-          {props.date.slice(-14, -6)}
-        </Typography>
-      </Grid>
       <Grid item xs={3}>
         <Typography
           variant="h6"
           className={classes.padding}
         >
           {props.orderId}
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography
+          variant="h6"
+          className={classes.padding}
+          style={{wordWrap:"break-word"}}
+        >
+          {props.email}
         </Typography>
       </Grid>
       <Grid item xs={4}>
@@ -101,7 +94,7 @@ function RowTable(props) {
         color={colorButton}
         onClick={handleClickOpen}
       >
-        <Typography variant="body1" style={{fontFamily: "Cabin", fontWeight: "500"}}>{props.status}</Typography>
+        <Typography variant="body1" style={{fontFamily: "Cabin", fontWeight: "700"}}>{props.status}</Typography>
       </Button>
       <Dialog
         open={open}

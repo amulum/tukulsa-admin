@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     // fontFamily: "Questrial",
     fontFamily: "Oxygen",
     letterSpacing: "1px",
-    fontSize: "1em"
+    fontSize: "1.1em"
 
   }
 }));
@@ -32,24 +32,19 @@ function RowTransaction(props) {
     <Fragment>
       <Grid item xs={2}>
         <Typography
-          variant="subtitle1"
+          variant="h6"
           className={classes.padding}
         >
-          {props.date.slice(0, -6)}
-        </Typography>
-      </Grid>
-      <Grid item xs={1}>
-        <Typography
-          variant="subtitle1"
-          className={classes.padding}
-        >
+          {props.date.slice(4,-6)}
+          <br/>
           {props.date.slice(16)}
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2}>
         <Typography
           variant="subtitle1"
           className={classes.padding}
+          style={{fontSize:"1em"}}
         >
           {props.orderId}
         </Typography>
@@ -60,6 +55,14 @@ function RowTransaction(props) {
           className={classes.padding}
         >
           {props.nominal}
+        </Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography
+          variant="subtitle1"
+          className={classes.padding}
+        >
+          {props.phoneNumber}
         </Typography>
       </Grid>
       <Grid item xs={2}>

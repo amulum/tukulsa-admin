@@ -35,6 +35,7 @@ const TableTransaction = props => {
         date={item.created_at}
         orderStatus={item.order_status}
         paymentStatus={item.payment_status}
+        phoneNumber={item.phone_number}
         nominal= {item.label}
         handleChangeReport={props.handleChangeReport}
       />
@@ -57,15 +58,7 @@ const TableTransaction = props => {
             TANGGAL
           </Typography>
         </Grid>
-        <Grid item xs={1}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
-            JAM
-          </Typography>
-        </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography
             variant="h6"
             className={classes.padding}
@@ -86,6 +79,14 @@ const TableTransaction = props => {
             variant="h6"
             className={classes.padding}
           >
+            NOMOR
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography
+            variant="h6"
+            className={classes.padding}
+          >
             PEMBAYARAN
           </Typography>
         </Grid>
@@ -99,12 +100,11 @@ const TableTransaction = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
-            <LoadingRow listLoading={[2,1,3,2,2,2]} />
+            <LoadingRow listLoading={[2,2,2,2,2,2]} />
+            <LoadingRow listLoading={[2,2,2,2,2,2]} />
+            <LoadingRow listLoading={[2,2,2,2,2,2]} />
+            <LoadingRow listLoading={[2,2,2,2,2,2]} />
+            <LoadingRow listLoading={[2,2,2,2,2,2]} />
           </Fragment>
         ) : (
           loopRow

@@ -35,6 +35,7 @@ const TableReport = props => {
         report={item.text}
         date={item.created_at}
         status={item.status}
+        email={item.email}
         handleChangeReport={props.handleChangeReport}
       />
     );
@@ -49,20 +50,12 @@ const TableReport = props => {
         alignItems="center"
         component="box"
       >
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Typography
             variant="h6"
             className={classes.padding}
           >
-            TANGGAL
-          </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
-            JAM
+            ORDER ID
           </Typography>
         </Grid>
         <Grid item xs={3}>
@@ -70,7 +63,7 @@ const TableReport = props => {
             variant="h6"
             className={classes.padding}
           >
-            ORDER ID
+            EMAIL
           </Typography>
         </Grid>
         <Grid item xs={4}>
@@ -91,11 +84,11 @@ const TableReport = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow listLoading={[2,1,3,4,2]} />
-            <LoadingRow listLoading={[2,1,3,4,2]} />
-            <LoadingRow listLoading={[2,1,3,4,2]} />
-            <LoadingRow listLoading={[2,1,3,4,2]} />
-            <LoadingRow listLoading={[2,1,3,4,2]} />
+            <LoadingRow listLoading={[3,3,4,2]} />
+            <LoadingRow listLoading={[3,3,4,2]} />
+            <LoadingRow listLoading={[3,3,4,2]} />
+            <LoadingRow listLoading={[3,3,4,2]} />
+            <LoadingRow listLoading={[3,3,4,2]} />
           </Fragment>
         ) : (
           loopRow

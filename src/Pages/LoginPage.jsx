@@ -11,6 +11,12 @@ class LoginPage extends Component {
     isError: false,
     isFromLogout: false
   }
+  componentWillMount = async () => {
+    if (this.props.isFromLogout) {
+      await this.setState({isFromLogout: this.props.isFromLogout})
+      await store.setState({isFromLogout: false})
+    }
+  }
   componentDidMount = async () => {
     let security = await this.props.match.params.code;
     if (
@@ -24,16 +30,13 @@ class LoginPage extends Component {
         }
       }
     }
-    if (this.props.isFromLogout) {
-      await this.setState({isFromLogout: this.props.isFromLogout})
-      await store.setState({isFromLogout: false})
-    }
   };
   handleSubmitForm = async event => {
     event.preventDefault();
     let security = event.target.security.value;
     await this.props.handleLogin(security);
     if (this.props.isLoggedIn) {
+      await store.setState({isFromLogin: true})
       await this.props.history.replace("/dashboard");
     } else {
       await this.setState({ isError : this.props.isError })
