@@ -7,6 +7,7 @@ const initialState = {
   isLoadingModal: true,
   isLoggedIn: false,
   isFromLogin: false,
+  isFromLoginReport: false,
   isFromLogout: false,
   isError: false,
   loginReport: false,
@@ -56,7 +57,7 @@ export const actions = store => ({
           self.setState({
             loginReport: true,
             isLoading: false,
-            isFromLogin: true
+            isFromLoginReport: true
           })
         } else {
           self.setState({

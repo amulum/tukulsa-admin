@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import clsx from "clsx";
 import LeftMenu from "../Loop/LeftMenu";
+import Swal from "sweetalert2"
 // CORE & STYLES
 import {
   Menu,
@@ -153,10 +154,22 @@ function MiniDrawer(props) {
     props.history.push(`/${pages}`);
   };
   const handleLogout = async () => {
-    await store.setState({isFromLogout: true})
-    await localStorage.removeItem("token");
-    await store.setState({isLoggedIn: false})
-    await props.history.push("/");
+    Swal.fire({
+      text: "Yakin mau logout?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e3a02b',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Logout!',
+      cancelButtonText: 'Gajadi'
+    }).then((result) => {
+      if (result.value) {
+        store.setState({isFromLogout: true})
+        localStorage.removeItem("token");
+        store.setState({isLoggedIn: false})
+        props.history.push("/");
+      }
+    })
   };
   return (
     <Fragment>
