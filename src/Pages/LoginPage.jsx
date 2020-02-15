@@ -7,8 +7,9 @@ import { withRouter, Redirect } from "react-router-dom";
 class LoginPage extends Component {
   state= {
     isReport: false,
+    isError: false
   }
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     let security = await this.props.match.params.code;
     if (
       security !== "" &&
@@ -28,8 +29,20 @@ class LoginPage extends Component {
     await this.props.handleLogin(security);
     if (this.props.isLoggedIn) {
       await this.props.history.replace("/dashboard");
+    } else {
+      await this.setState({ isError : this.props.isError })
+      console.log('masuk else is logged in', this.props.isError)
     }
   };
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({isError: false});
+  };
+  handleOpen = () => {
+    this.setState({isError: true});
+  }
   render() {
     if (this.state.isReport) {
       return (
@@ -43,13 +56,15 @@ class LoginPage extends Component {
         <Redirect to="/dashboard"/>
       )
     } else {
-      return (
-        <Fragment>
-        <Login handleSubmit={this.handleSubmitForm} />
-        </Fragment>
-      )
+      return <Login
+        open={this.state.isError}
+        handleClose={this.handleClose}
+        handleOpen={this.handleOpen}
+        handleSubmit={this.handleSubmitForm}
+        />
+      
     }
   }
 }
 
-export default connect("isLoggedIn, loginReport", actions)(withRouter(LoginPage));
+export default connect("isLoggedIn, loginReport, isError", actions)(withRouter(LoginPage));

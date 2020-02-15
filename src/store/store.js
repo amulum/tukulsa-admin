@@ -6,6 +6,8 @@ const initialState = {
   isLoadingPenjualan: true,
   isLoadingModal: true,
   isLoggedIn: false,
+  isFromLogin: true,
+  isError: false,
   loginReport: false,
   listAllTransactions: [],
   listAllReport: [],
@@ -52,12 +54,14 @@ export const actions = store => ({
         if (security.length === 32) {
           self.setState({
             loginReport: true,
-            isLoading: false
+            isLoading: false,
+            isFromLogin: true
           })
         } else {
           self.setState({
             isLoading: false,
-            isLoggedIn: true
+            isLoggedIn: true,
+            isFromLogin: true
           })
         }
         localStorage.setItem("token", response.data.token);
@@ -65,7 +69,8 @@ export const actions = store => ({
       })
       .catch(error => {
         self.setState({
-          isLoading: false
+          isLoading: false,
+          isError: true
         });
         console.log("masuk error", error);
       });
