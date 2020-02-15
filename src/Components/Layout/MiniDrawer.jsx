@@ -18,7 +18,6 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import "../../App.css";
 import { store } from "../../store/store"
 // ICONS
-import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -142,10 +141,6 @@ function MiniDrawer(props) {
   // Icon button
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openIcon = Boolean(anchorEl);
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -198,18 +193,7 @@ function MiniDrawer(props) {
             </Typography>
             {/* icon button */}
             <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <Typography variant="h6" className={classes.greeting}>
-                  Halooohh
-                </Typography>
-                <AccountCircle />
-              </IconButton>
+              
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
