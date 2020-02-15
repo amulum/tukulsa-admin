@@ -6,7 +6,7 @@ const initialState = {
   isLoadingPenjualan: true,
   isLoadingModal: true,
   isLoggedIn: false,
-  isFromLogin: true,
+  isFromLogin: false,
   isError: false,
   loginReport: false,
   listAllTransactions: [],
@@ -47,7 +47,7 @@ export const actions = store => ({
       method: "get",
       url: `${apiPath}/auth?security_code=${security}`
     };
-    console.log("cek req admin transactions", req);
+    console.log("cek req admin login", req);
     const self = store;
     await axios(req)
       .then(response => {

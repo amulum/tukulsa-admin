@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
   const classes = useStyles();
   const message = 
-    <Typography variant="h6" style={{alignItems: "center", textAlign: "center"}}>
+    <Typography variant="h6">
       Invalid Security Code
     </Typography>
   return (

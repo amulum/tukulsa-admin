@@ -65,7 +65,7 @@ class Dashboard extends Component {
                 selectedSnack="success"
                 messageSnack={message}
               />
-              <Grid container direction="row">
+              <Grid container direction="row" alignItems="center">
                 <Grid item xs={10} >
                   <Typography
                     variant="h4"

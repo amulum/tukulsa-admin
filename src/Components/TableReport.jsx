@@ -91,10 +91,11 @@ const TableReport = props => {
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow listLoading={[2,1,2,4,3]} />
-            <LoadingRow listLoading={[2,1,2,4,3]} />
-            <LoadingRow listLoading={[2,1,2,4,3]} />
-            <LoadingRow listLoading={[2,1,2,4,3]} />
+            <LoadingRow listLoading={[2,1,3,4,2]} />
+            <LoadingRow listLoading={[2,1,3,4,2]} />
+            <LoadingRow listLoading={[2,1,3,4,2]} />
+            <LoadingRow listLoading={[2,1,3,4,2]} />
+            <LoadingRow listLoading={[2,1,3,4,2]} />
           </Fragment>
         ) : (
           loopRow
