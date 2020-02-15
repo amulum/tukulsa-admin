@@ -3,11 +3,13 @@ import Login from "../Components/Login";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
 import { withRouter, Redirect } from "react-router-dom";
+import { store } from '../store/store'
 
 class LoginPage extends Component {
   state= {
     isReport: false,
-    isError: false
+    isError: false,
+    isFromLogout: false
   }
   componentDidMount = async () => {
     let security = await this.props.match.params.code;
@@ -21,6 +23,10 @@ class LoginPage extends Component {
           await this.setState({isReport: this.props.loginReport})
         }
       }
+    }
+    if (this.props.isFromLogout) {
+      await this.setState({isFromLogout: this.props.isFromLogout})
+      await store.setState({isFromLogout: false})
     }
   };
   handleSubmitForm = async event => {
@@ -39,6 +45,8 @@ class LoginPage extends Component {
       return;
     }
     this.setState({isError: false});
+    this.setState({isFromLogout: false})
+
   };
   handleOpen = () => {
     this.setState({isError: true});
@@ -59,12 +67,12 @@ class LoginPage extends Component {
       return <Login
         open={this.state.isError}
         handleClose={this.handleClose}
-        handleOpen={this.handleOpen}
         handleSubmit={this.handleSubmitForm}
+        isFromLogout={this.state.isFromLogout}
         />
       
     }
   }
 }
 
-export default connect("isLoggedIn, loginReport, isError", actions)(withRouter(LoginPage));
+export default connect("isLoggedIn, loginReport, isError, isFromLogout", actions)(withRouter(LoginPage));

@@ -58,8 +58,12 @@ function Login(props) {
   const classes = useStyles();
   const message = 
     <Typography variant="h6">
-      Invalid Security Code
+      INVALID SECURITY CODE!!!
     </Typography>
+  const messageLogout =
+  <Typography variant="h6">
+    Bye-bye Admin, See you next time :))
+  </Typography>
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -97,10 +101,17 @@ function Login(props) {
       </Box>
       <CustomSnackbar
         open={props.open}
-        handleOpen={props.handleOpen}
         handleClose={props.handleClose}
         selectedSnack="error"
         messageSnack={message}
+        transition="grow"
+      />
+      <CustomSnackbar
+        open={props.isFromLogout}
+        handleClose={props.handleClose}
+        selectedSnack="success"
+        messageSnack={messageLogout}
+        transition="fade"
       />
     </Container>
   );

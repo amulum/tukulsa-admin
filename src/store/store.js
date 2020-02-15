@@ -7,6 +7,7 @@ const initialState = {
   isLoadingModal: true,
   isLoggedIn: false,
   isFromLogin: false,
+  isFromLogout: false,
   isError: false,
   loginReport: false,
   listAllTransactions: [],
@@ -17,7 +18,7 @@ const initialState = {
   totalProfit: 0,
   listSuccessTransactions: [],
   balancePulsa: 0,
-  reportStatus: ''
+  reportStatus: '',
 };
 export const store = createStore(initialState);
 

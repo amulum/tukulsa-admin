@@ -38,10 +38,6 @@ class Dashboard extends Component {
     this.setState({openSnack: false});
     store.setState({isFromLogin: false})
   };
-  handleOpen = () => {
-    this.setState({openSnack: true});
-    store.setState({isFromLogin: false})
-  }
   render() {
     const message = 
     <Typography variant="h6">
@@ -64,6 +60,7 @@ class Dashboard extends Component {
                 handleClose={this.handleClose}
                 selectedSnack="success"
                 messageSnack={message}
+                transition="slide"
               />
               <Grid container direction="row" alignItems="center">
                 <Grid item xs={10} >

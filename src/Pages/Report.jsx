@@ -62,10 +62,6 @@ class Report extends Component {
     this.setState({openSnack: false});
     store.setState({isFromLogin: false})
   };
-  handleOpen = () => {
-    this.setState({openSnack: true});
-    store.setState({isFromLogin: false})
-  }
   render() {
     const message = 
     <Typography variant="h6">
@@ -115,10 +111,10 @@ class Report extends Component {
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
             <CustomSnackbar
               open={this.state.openSnack}
-              handleOpen={this.handleOpen}
               handleClose={this.handleClose}
               selectedSnack="success"
               messageSnack={message}
+              transition="slide"
             />
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={6} >
