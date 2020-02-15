@@ -6,8 +6,6 @@ import { Grid, makeStyles } from "@material-ui/core";
 const LoadingRow = props => {
   const useStyles = makeStyles({
     cell: {
-      fontSize: "3em",
-      width: "80%",
       display: "flex",
       justifyContent: "center"
     },
@@ -16,21 +14,13 @@ const LoadingRow = props => {
     }
   });
   const classes = useStyles();
-  return (
-    <Fragment>
-      <Grid item xs={1} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
+  const loopLoadingRow = props.listLoading.map((item, key) => {
+    return (
+      <Grid item xs={item} className={classes.cell}>
+        <Skeleton animation="wave" height={70} className={classes.skeleton} />
       </Grid>
-      <Grid item xs={3} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-      <Grid item xs={5} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-      <Grid item xs={3} className={classes.cell}>
-        <Skeleton animation="wave" className={classes.skeleton} />
-      </Grid>
-    </Fragment>
-  );
+    );
+  });
+  return <Fragment>{loopLoadingRow}</Fragment>;
 };
 export default withRouter(LoadingRow);

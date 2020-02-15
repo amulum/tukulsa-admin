@@ -6,50 +6,45 @@ import MiniDrawer from "../Components/Layout/MiniDrawer";
 import { Typography, Grid } from "@material-ui/core";
 import "../App.css";
 import BoxElement from "../Components/BoxElement";
-import TableTransaction from "../Components/TableTransaction";
 import FilterBy from "../Components/FilterBy";
-import SearchBar from "../Components/SearchBar";
+import TableProduct from "../Components/TableProduct";
 import PaginationControlled from "../Components/Pagination";
 
-class Transactions extends Component {
+class Product extends Component {
   state = {
     isLoading: true,
-    paymentStatus: "",
-    orderStatus: "",
+    operator: "",
     word: "",
-    listStatusPembayaran: ["LUNAS", "TERTUNDA", "BELUM DIBAYAR", "KADALUWARSA"],
-    listStatusOrder: ["SUKSES", "BELUM DIPROSES", "GAGAL"],
+    listOperator: ["Telkomsel", "Indosat", "XL", "Three", "AXIS", "Smart"],
+    listStatusOrder: ["SUKSES", "BELUM DIPROSES"],
     listAllTransactions: [],
+    listAllProduct: [],
     selectedPage: 1
   };
+  refreshReport = async () => {
+    await this.props.getAllProduct();
+    await this.setState({ listAllProduct: this.props.listAllProduct });
+  };
   componentDidMount = async () => {
-    await this.props.getAllTransactions();
-    await this.setState({
-      listAllTransactions: this.props.listAllTransactions
-    });
+    await this.props.getAllProduct();
+    // console.log("listproduct did mount", this.props.listAllProduct);
+    await this.setState({ listAllProduct: this.props.listAllProduct });
     await setTimeout(this.setState({ isLoading: this.props.isLoading }), 5000);
   };
-  handleFilterPayment = status => {
-    this.setState({ paymentStatus: status });
+  handleFilterOperator = status => {
+    this.setState({ operator: status });
   };
-  handleFilterOrder = status => {
-    this.setState({ orderStatus: status });
-  };
-  handleSearchBar = async keyword => {
-    await this.setState({ word: keyword });
+  handleChangePrice = async (productId, price) => {
+    // console.log("cek product id di pages", productId);
+    // console.log("cek price baru di pages", price);
+    await this.props.editProductPrice(productId, price);
+    await this.refreshReport();
   };
   handlePagination = async page => {
     await this.setState({ selectedPage: page });
   };
-  // butuh handlefilterstatus, id, title, listFilter
   render() {
-    const {
-      listAllTransactions,
-      paymentStatus,
-      orderStatus,
-      word,
-      selectedPage
-    } = this.state;
+    const { listAllProduct, operator, selectedPage } = this.state;
     let topIndex, bottomIndex;
     if (selectedPage === 1) {
       topIndex = 10;
@@ -58,36 +53,23 @@ class Transactions extends Component {
       topIndex = selectedPage * 10;
       bottomIndex = selectedPage * 10 - 10;
     }
-    let filteredTransactions = listAllTransactions;
-    if (paymentStatus !== "") {
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (item.payment_status === paymentStatus) {
+    // console.log("page :", selectedPage);
+    // console.log("top index :", topIndex);
+    // console.log("bottom index :", bottomIndex);
+    let filteredProduct = listAllProduct;
+    if (operator !== "") {
+      filteredProduct = filteredProduct.filter(item => {
+        if (item.operator === operator) {
           return item;
         }
         return false;
-      });
-    }
-    if (orderStatus !== "") {
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (item.order_status === orderStatus) {
-          return item;
-        }
-        return false;
-      });
-    }
-    if (word !== "") {
-      filteredTransactions = filteredTransactions.filter(item => {
-        if (new RegExp(word).test(item.order_id.toLowerCase())) {
-          return item;
-        } else {
-          return false;
-        }
       });
     }
     const oke = (
-      <TableTransaction
-        listAllTransactions={filteredTransactions.slice(bottomIndex, topIndex)}
+      <TableProduct
+        listAllProduct={filteredProduct.slice(bottomIndex, topIndex)}
         isLoading={this.state.isLoading}
+        handleChangePrice={this.handleChangePrice}
       />
     );
     if (localStorage.getItem("token") === null) {
@@ -104,7 +86,7 @@ class Transactions extends Component {
               alignItems="center"
               spacing={2}
             >
-              <Grid item xs={3}>
+              <Grid item xs={9}>
                 <Typography
                   variant="h4"
                   style={{
@@ -115,13 +97,10 @@ class Transactions extends Component {
                     color: "#306854"
                   }}
                 >
-                  Transactions
+                  Product
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <SearchBar handleSearchbar={this.handleSearchBar} />
-              </Grid>
-              <Grid item xs={3}>
                 <Grid
                   container
                   justify="space-around"
@@ -129,25 +108,10 @@ class Transactions extends Component {
                   alignItems="center"
                 >
                   <FilterBy
-                    id="status-pembayaran"
-                    title="STATUS PEMBAYARAN"
-                    handleFilterStatus={this.handleFilterPayment}
-                    listFilter={this.state.listStatusPembayaran}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={3}>
-                <Grid
-                  container
-                  justify="space-around"
-                  direction="row"
-                  alignItems="center"
-                >
-                  <FilterBy
-                    id="status-order"
-                    title="STATUS ORDER"
-                    handleFilterStatus={this.handleFilterOrder}
-                    listFilter={this.state.listStatusOrder}
+                    id="operator"
+                    title="OPERATOR"
+                    handleFilterStatus={this.handleFilterOperator}
+                    listFilter={this.state.listOperator}
                   />
                 </Grid>
               </Grid>
@@ -157,7 +121,7 @@ class Transactions extends Component {
               <Grid item xs={12}>
                 <PaginationControlled
                   handlePagination={this.handlePagination}
-                  lengthPages={Math.ceil(filteredTransactions.length / 10)}
+                  lengthPages={Math.ceil(filteredProduct.length / 10)}
                 />
               </Grid>
             </Grid>
@@ -170,6 +134,6 @@ class Transactions extends Component {
 }
 
 export default connect(
-  "listAllTransactions",
+  "listAllTransactions, listAllProduct",
   actions
-)(withRouter(Transactions));
+)(withRouter(Product));

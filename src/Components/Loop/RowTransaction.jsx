@@ -2,11 +2,7 @@ import React, { Fragment } from "react";
 import { connect } from "unistore/react";
 import { actions } from "../../store/store";
 import { withRouter } from "react-router-dom";
-import {
-  makeStyles,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { makeStyles, Grid, Typography } from "@material-ui/core";
 // ICONS
 
 const useStyles = makeStyles(theme => ({
@@ -15,67 +11,53 @@ const useStyles = makeStyles(theme => ({
   },
   padding: {
     padding: "0.4em",
-    fontWeight: "400"
+    fontWeight: "500",
+    color: "#1b4144",
+    textAlign: "center",
+    // fontFamily: "Cabin",
+    // fontFamily: "Questrial",
+    fontFamily: "Oxygen",
+    letterSpacing: "1px",
+    fontSize: "1.1em"
   }
 }));
 function RowTransaction(props) {
-  console.log('id',props.id)
-  console.log('report',props.report)
   const classes = useStyles();
-  console.log('propsdi rowtable',props)
   return (
     <Fragment>
       <Grid item xs={2}>
-        <Typography
-          variant="body2"
-          className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
-        >
-          {props.date.slice(0, -14)}
+        <Typography variant="h6" className={classes.padding}>
+          {props.date.slice(4, -6)}
+          <br />
+          {props.date.slice(16)}
         </Typography>
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         <Typography
-          variant="body2"
+          variant="subtitle1"
           className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
-        >
-          {props.date.slice(-14, -6)}
-        </Typography>
-      </Grid>
-      <Grid item xs={3}>
-        <Typography
-          variant="body2"
-          className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
+          style={{ fontSize: "1em" }}
         >
           {props.orderId}
         </Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography
-          variant="body2"
-          className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
-        >
+        <Typography variant="subtitle1" className={classes.padding}>
           {props.nominal}
         </Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography
-          variant="body2"
-          className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
-        >
+        <Typography variant="subtitle1" className={classes.padding}>
+          {props.phoneNumber}
+        </Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="subtitle1" className={classes.padding}>
           {props.paymentStatus}
         </Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography
-          variant="body2"
-          className={classes.padding}
-          style={{ textAlign: "center", alignItems: "center" }}
-        >
+        <Typography variant="subtitle1" className={classes.padding}>
           {props.orderStatus}
         </Typography>
       </Grid>

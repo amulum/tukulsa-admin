@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {  Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { connect } from "unistore/react";
-import { actions } from "../store/store";
 import RowReport from "./Loop/RowReport";
 import LoadingRow from "./Loop/LoadingRow";
 
@@ -13,11 +11,20 @@ const useStyles = makeStyles({
   },
   padding: {
     padding: "0.4em",
-    backgroundColor: "#d7e5ec"
+    borderBottom: "2px solid #306854",
+    marginBottom: "0.4em",
+    textAlign: "center",
+    fontWeight: "500",
+    fontSize: "1.4em",
+    color: "#1b4144",
+    fontFamily: "Cabin"
+    // fontFamily: "Questrial",
+    // fontFamily: "Oxygen",
   }
 });
 
 const TableReport = props => {
+  // console.log("filtered report di dalem table", props.listAllReport);
   const classes = useStyles();
   const loopRow = props.listAllReport.map((item, key) => {
     return (
@@ -28,6 +35,7 @@ const TableReport = props => {
         report={item.text}
         date={item.created_at}
         status={item.status}
+        email={item.email}
         handleChangeReport={props.handleChangeReport}
       />
     );
@@ -42,56 +50,33 @@ const TableReport = props => {
         alignItems="center"
         component="box"
       >
-        <Grid item xs={2}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
-            TANGGAL
-          </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
-            JAM
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
+        <Grid item xs={3}>
+          <Typography variant="h6" className={classes.padding}>
             ORDER ID
           </Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
-            REPORT
+        <Grid item xs={3}>
+          <Typography variant="h6" className={classes.padding}>
+            EMAIL
           </Typography>
         </Grid>
-        <Grid item xs={3}>
-          <Typography
-            variant="subtitle1"
-            className={classes.padding}
-            style={{ textAlign: "center", fontWeight: "600" }}
-          >
+        <Grid item xs={4}>
+          <Typography variant="h6" className={classes.padding}>
+            KELUHAN
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="h6" className={classes.padding}>
             STATUS
           </Typography>
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow />
-            <LoadingRow />
-            <LoadingRow />
+            <LoadingRow listLoading={[3, 3, 4, 2]} />
+            <LoadingRow listLoading={[3, 3, 4, 2]} />
+            <LoadingRow listLoading={[3, 3, 4, 2]} />
+            <LoadingRow listLoading={[3, 3, 4, 2]} />
+            <LoadingRow listLoading={[3, 3, 4, 2]} />
           </Fragment>
         ) : (
           loopRow
@@ -101,4 +86,4 @@ const TableReport = props => {
   );
 };
 
-export default connect("listAllReport", actions)(withRouter(TableReport));
+export default withRouter(TableReport);

@@ -1,8 +1,7 @@
 import React from "react";
 import { LineChart } from "react-chartkick";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Typography } from "@material-ui/core";
 import "chart.js";
-import Title from "../Components/Title";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
@@ -27,7 +26,16 @@ export default function Chart(props) {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Title>Riwayat Transaksi</Title>
+            <Typography
+              variant="h4"
+              style={{
+                fontFamily: "Cabin",
+                fontWeight: "400",
+                color: "#306854"
+              }}
+            >
+              Riwayat Transaksi
+            </Typography>
             <LineChart data={props.data} />
           </Paper>
         </Grid>

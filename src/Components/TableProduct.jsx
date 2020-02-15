@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 import LoadingRow from "./Loop/LoadingRow";
-import RowTransactions from "./Loop/RowTransaction";
+import RowProduct from "./Loop/RowProduct";
 import { withRouter } from "react-router-dom";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
@@ -22,19 +22,20 @@ const useStyles = makeStyles({
   }
 });
 
-const TableTransaction = props => {
+const TableProduct = props => {
   const classes = useStyles();
-  const loopRow = props.listAllTransactions.map((item, key) => {
+  const loopRow = props.listAllProduct.map((item, key) => {
+    // console.log("key", key);
     return (
-      <RowTransactions
-        key={key}
-        orderId={item.order_id}
-        date={item.created_at}
-        orderStatus={item.order_status}
-        paymentStatus={item.payment_status}
-        phoneNumber={item.phone_number}
-        nominal={item.label}
-        handleChangeReport={props.handleChangeReport}
+      <RowProduct
+        no={key}
+        id={item.id}
+        operator={item.operator}
+        code={item.code}
+        nominal={item.nominal}
+        price={item.price}
+        valid={item.valid_to}
+        handleChangePrice={props.handleChangePrice}
       />
     );
   });
@@ -47,14 +48,19 @@ const TableTransaction = props => {
         justify="center"
         alignItems="center"
       >
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Typography variant="h6" className={classes.padding}>
-            TANGGAL
+            NO
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography variant="h6" className={classes.padding}>
-            ORDER ID
+            OPERATOR
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="h6" className={classes.padding}>
+            CODE
           </Typography>
         </Grid>
         <Grid item xs={2}>
@@ -64,26 +70,26 @@ const TableTransaction = props => {
         </Grid>
         <Grid item xs={2}>
           <Typography variant="h6" className={classes.padding}>
-            NOMOR
+            MASA AKTIF
           </Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography variant="h6" className={classes.padding}>
-            PEMBAYARAN
+            HARGA
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Typography variant="h6" className={classes.padding}>
-            ORDER
+            &nbsp;
           </Typography>
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
-            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
-            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
-            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
-            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
+            <LoadingRow listLoading={[1, 2, 2, 2, 2, 2, 1]} />
+            <LoadingRow listLoading={[1, 2, 2, 2, 2, 2, 1]} />
+            <LoadingRow listLoading={[1, 2, 2, 2, 2, 2, 1]} />
+            <LoadingRow listLoading={[1, 2, 2, 2, 2, 2, 1]} />
+            <LoadingRow listLoading={[1, 2, 2, 2, 2, 2, 1]} />
           </Fragment>
         ) : (
           loopRow
@@ -93,4 +99,4 @@ const TableTransaction = props => {
   );
 };
 
-export default connect("", actions)(withRouter(TableTransaction));
+export default connect("", actions)(withRouter(TableProduct));

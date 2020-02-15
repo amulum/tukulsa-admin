@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import clsx from "clsx";
 import LeftMenu from "../Loop/LeftMenu";
+import Swal from "sweetalert2";
 // CORE & STYLES
 import {
   Menu,
@@ -11,12 +12,12 @@ import {
   List,
   Typography,
   Divider,
-  IconButton,
+  IconButton
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import "../../App.css";
+import { store } from "../../store/store";
 // ICONS
-import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -24,7 +25,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import WarningIcon from "@material-ui/icons/Warning";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import SettingsIcon from "@material-ui/icons/Settings";
+import SimCardIcon from "@material-ui/icons/SimCard";
 import { withRouter } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -38,15 +39,15 @@ const listIcon = [
     value: <LocalAtmIcon />
   },
   {
+    name: "Product",
+    value: <SimCardIcon />
+  },
+  {
     name: "Report",
     value: <WarningIcon />
   }
 ];
 const listIconBottom = [
-  {
-    name: "Settings",
-    value: <SettingsIcon />
-  },
   {
     name: "Logout",
     value: <ExitToAppIcon />
@@ -112,6 +113,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     fontFamily: "antipasto_prodemibold",
+    fontSize: "2.5em",
+    letterSpacing: "1.1px"
   },
   wrapBar: {
     flexGrow: 1
@@ -138,27 +141,30 @@ function MiniDrawer(props) {
   // Icon button
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openIcon = Boolean(anchorEl);
-  // const [auth, setAuth] = React.useState(true);
-  // const handleChange = event => {
-  //   setAuth(event.target.checked);
-  // };
-
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
   const handleChangePages = pages => {
-    console.log("props di mini drawer", props);
     pages = pages.toLowerCase();
-    console.log("kiriamn dari child", pages);
     props.history.push(`/${pages}`);
   };
   const handleLogout = async () => {
-    await localStorage.removeItem("token");
-    await props.history.push("/");
+    Swal.fire({
+      text: "Yakin mau logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e3a02b",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Logout!",
+      cancelButtonText: "Gajadi"
+    }).then(result => {
+      if (result.value) {
+        store.setState({ isFromLogout: true });
+        localStorage.removeItem("token");
+        store.setState({ isLoggedIn: false });
+        props.history.push("/");
+      }
+    });
   };
   return (
     <Fragment>
@@ -182,23 +188,11 @@ function MiniDrawer(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5" noWrap className={classes.title}>
+            <Typography variant="h4" noWrap className={classes.title}>
               Tukulsa Admin
             </Typography>
             {/* icon button */}
             <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <Typography variant="h6" className={classes.greeting}>
-                  Halooohh
-                </Typography>
-                <AccountCircle />
-              </IconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
