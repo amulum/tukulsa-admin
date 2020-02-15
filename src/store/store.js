@@ -6,6 +6,9 @@ const initialState = {
   isLoadingPenjualan: true,
   isLoadingModal: true,
   isLoggedIn: false,
+  isFromLogin: false,
+  isFromLogout: false,
+  isError: false,
   loginReport: false,
   listAllTransactions: [],
   listAllReport: [],
@@ -15,7 +18,7 @@ const initialState = {
   totalProfit: 0,
   listSuccessTransactions: [],
   balancePulsa: 0,
-  reportStatus: ''
+  reportStatus: '',
 };
 export const store = createStore(initialState);
 
@@ -45,19 +48,21 @@ export const actions = store => ({
       method: "get",
       url: `${apiPath}/auth?security_code=${security}`
     };
-    console.log("cek req admin transactions", req);
+    console.log("cek req admin login", req);
     const self = store;
     await axios(req)
       .then(response => {
         if (security.length === 32) {
           self.setState({
             loginReport: true,
-            isLoading: false
+            isLoading: false,
+            isFromLogin: true
           })
         } else {
           self.setState({
             isLoading: false,
-            isLoggedIn: true
+            isLoggedIn: true,
+            isFromLogin: true
           })
         }
         localStorage.setItem("token", response.data.token);
@@ -65,7 +70,8 @@ export const actions = store => ({
       })
       .catch(error => {
         self.setState({
-          isLoading: false
+          isLoading: false,
+          isError: true
         });
         console.log("masuk error", error);
       });

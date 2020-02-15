@@ -153,6 +153,7 @@ function MiniDrawer(props) {
     props.history.push(`/${pages}`);
   };
   const handleLogout = async () => {
+    await store.setState({isFromLogout: true})
     await localStorage.removeItem("token");
     await store.setState({isLoggedIn: false})
     await props.history.push("/");
