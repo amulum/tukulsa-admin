@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import clsx from "clsx";
 import LeftMenu from "../Loop/LeftMenu";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 // CORE & STYLES
 import {
   Menu,
@@ -12,11 +12,11 @@ import {
   List,
   Typography,
   Divider,
-  IconButton,
+  IconButton
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import "../../App.css";
-import { store } from "../../store/store"
+import { store } from "../../store/store";
 // ICONS
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -25,7 +25,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import WarningIcon from "@material-ui/icons/Warning";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import SimCardIcon from '@material-ui/icons/SimCard';
+import SimCardIcon from "@material-ui/icons/SimCard";
 import { withRouter } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -45,7 +45,7 @@ const listIcon = [
   {
     name: "Report",
     value: <WarningIcon />
-  },
+  }
 ];
 const listIconBottom = [
   {
@@ -151,20 +151,20 @@ function MiniDrawer(props) {
   const handleLogout = async () => {
     Swal.fire({
       text: "Yakin mau logout?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#e3a02b',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Logout!',
-      cancelButtonText: 'Gajadi'
-    }).then((result) => {
+      confirmButtonColor: "#e3a02b",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Logout!",
+      cancelButtonText: "Gajadi"
+    }).then(result => {
       if (result.value) {
-        store.setState({isFromLogout: true})
+        store.setState({ isFromLogout: true });
         localStorage.removeItem("token");
-        store.setState({isLoggedIn: false})
+        store.setState({ isLoggedIn: false });
         props.history.push("/");
       }
-    })
+    });
   };
   return (
     <Fragment>
@@ -193,7 +193,6 @@ function MiniDrawer(props) {
             </Typography>
             {/* icon button */}
             <div>
-              
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}

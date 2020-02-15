@@ -14,17 +14,13 @@ const LoadingRow = props => {
     }
   });
   const classes = useStyles();
-  const loopLoadingRow = props.listLoading.map((item, key)=>{
+  const loopLoadingRow = props.listLoading.map((item, key) => {
     return (
       <Grid item xs={item} className={classes.cell}>
         <Skeleton animation="wave" height={70} className={classes.skeleton} />
       </Grid>
-    )
-  })
-  return (
-    <Fragment>
-      {loopLoadingRow}
-    </Fragment>
-  );
+    );
+  });
+  return <Fragment>{loopLoadingRow}</Fragment>;
 };
 export default withRouter(LoadingRow);

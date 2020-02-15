@@ -26,12 +26,16 @@ export default function Chart(props) {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-          <Typography
-            variant="h4"
-            style={{ fontFamily: "Cabin", fontWeight: "400", color: "#306854" }}
-          >
-            Riwayat Transaksi
-          </Typography>
+            <Typography
+              variant="h4"
+              style={{
+                fontFamily: "Cabin",
+                fontWeight: "400",
+                color: "#306854"
+              }}
+            >
+              Riwayat Transaksi
+            </Typography>
             <LineChart data={props.data} />
           </Paper>
         </Grid>

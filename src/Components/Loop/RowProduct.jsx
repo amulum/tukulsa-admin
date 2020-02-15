@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { connect } from "unistore/react";
 import { actions } from "../../store/store";
 import { withRouter } from "react-router-dom";
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from "@material-ui/icons/Create";
 import {
   makeStyles,
   Grid,
@@ -35,39 +35,39 @@ const useStyles = makeStyles(theme => ({
 }));
 function RowProduct(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false)
-  const [price, newPrice] = useState(0)
-  const [isDisabled, setDisabled] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [price, newPrice] = useState(0);
+  const [isDisabled, setDisabled] = useState(false);
   const handleSetPrice = async (event, oldPrice) => {
-    console.log('price : ',price)
-    console.log('oldprice : ',oldPrice)
-    newPrice(event.target.value)
-    let  diffPrice = await Math.abs(event.target.value - oldPrice)
+    // console.log("price : ", price);
+    // console.log("oldprice : ", oldPrice);
+    newPrice(event.target.value);
+    let diffPrice = await Math.abs(event.target.value - oldPrice);
     if (diffPrice > 500) {
-      console.log('masuk if')
-      setDisabled(true)
+      // console.log("masuk if");
+      setDisabled(true);
     } else {
-      console.log('masuk else')
-      setDisabled(false)
+      // console.log("masuk else");
+      setDisabled(false);
     }
-    console.log('price update di change', price)
-  }
-  const handleClickOpen = async (price) => {
-    console.log('price di handle open', price)
+    // console.log("price update di change", price);
+  };
+  const handleClickOpen = async price => {
+    // console.log("price di handle open", price);
     await setOpen(true);
-    await newPrice(price)
+    await newPrice(price);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  const changePrice = props.handleChangePrice
-  const changeButton = async (productId) => {
-    console.log('price di submit',price)
-    console.log('product id di submit', productId)
-    await changePrice(productId, price)
-    await setOpen(false)
-  }
-  console.log('props key', props)
+  const changePrice = props.handleChangePrice;
+  const changeButton = async productId => {
+    // console.log("price di submit", price);
+    // console.log("product id di submit", productId);
+    await changePrice(productId, price);
+    await setOpen(false);
+  };
+  // console.log("props key", props);
   return (
     <Fragment>
       <Grid item xs={1}>
@@ -76,7 +76,7 @@ function RowProduct(props) {
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          {props.no+1}
+          {props.no + 1}
         </Typography>
       </Grid>
       <Grid item xs={2}>
@@ -121,17 +121,16 @@ function RowProduct(props) {
           className={classes.padding}
           style={{ textAlign: "center", alignItems: "center" }}
         >
-          Rp {props.price.toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          Rp {props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </Typography>
       </Grid>
       <Grid item xs={1}>
         <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={(price)=>handleClickOpen(props.price)}
-            color="inherit"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={price => handleClickOpen(props.price)}
+          color="inherit"
         >
           <CreateIcon />
         </IconButton>
@@ -140,32 +139,29 @@ function RowProduct(props) {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-
         >
-          <DialogTitle id="alert-dialog-title">
-            Ubah Harga
-          </DialogTitle>
+          <DialogTitle id="alert-dialog-title">Ubah Harga</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {props.operator} nominal {props.nominal}
             </DialogContentText>
-              <TextField
+            <TextField
               autoFocus
               margin="dense"
               id="harga"
               label="Harga Baru"
               type="number"
-              onChange={(event, oldPrice)=>handleSetPrice(event, props.price)}
+              onChange={(event, oldPrice) => handleSetPrice(event, props.price)}
               value={price}
               fullWidth
-              />
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Tidak
             </Button>
             <Button
-              onClick={(productId)=>changeButton(props.id)}
+              onClick={productId => changeButton(props.id)}
               color="primary"
               disabled={isDisabled}
               autoFocus

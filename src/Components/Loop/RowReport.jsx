@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   padding: {
     padding: "0.4em",
     fontWeight: "500",
-    textAlign: "center", 
+    textAlign: "center",
     alignItems: "center",
     color: "#1b4144",
     // fontFamily: "Cabin",
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 let variantButton, colorButton;
 function RowTable(props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,11 +43,11 @@ function RowTable(props) {
     setOpen(false);
   };
   const classes = useStyles();
-  const changeReport = props.handleChangeReport
-  const changeButton = async (reportId) => {
-    changeReport(reportId)
-    setOpen(false)
-  }
+  const changeReport = props.handleChangeReport;
+  const changeButton = async reportId => {
+    changeReport(reportId);
+    setOpen(false);
+  };
   if (props.status === "BELUM DISELESAIKAN") {
     variantButton = "contained";
     colorButton = "secondary";
@@ -58,10 +58,7 @@ function RowTable(props) {
   return (
     <Fragment>
       <Grid item xs={3}>
-        <Typography
-          variant="h6"
-          className={classes.padding}
-        >
+        <Typography variant="h6" className={classes.padding}>
           {props.orderId}
         </Typography>
       </Grid>
@@ -69,7 +66,7 @@ function RowTable(props) {
         <Typography
           variant="h6"
           className={classes.padding}
-          style={{wordWrap:"break-word"}}
+          style={{ wordWrap: "break-word" }}
         >
           {props.email}
         </Typography>
@@ -90,39 +87,44 @@ function RowTable(props) {
         style={{ textAlign: "center" }}
       >
         <Button
-        variant={variantButton}
-        color={colorButton}
-        onClick={handleClickOpen}
-      >
-        <Typography variant="body1" style={{fontFamily: "Cabin", fontWeight: "700"}}>{props.status}</Typography>
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Ubah status laporan menjadi Selesai?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Cek lagi laporan apakah benar sudah terselesaikan?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Tidak
-          </Button>
-          <Button
-            onClick={(reportId)=>changeButton(props.id)}
-            color="primary"
-            autoFocus
+          variant={variantButton}
+          color={colorButton}
+          onClick={handleClickOpen}
+        >
+          <Typography
+            variant="body1"
+            style={{ fontFamily: "Cabin", fontWeight: "700" }}
           >
-            Ya
-          </Button>
-        </DialogActions>
-      </Dialog>
+            {props.status}
+          </Typography>
+        </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Ubah status laporan menjadi Selesai?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Cek lagi laporan apakah benar sudah terselesaikan?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Tidak
+            </Button>
+            <Button
+              onClick={reportId => changeButton(props.id)}
+              color="primary"
+              autoFocus
+            >
+              Ya
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </Fragment>
   );
