@@ -10,7 +10,8 @@ import { actions } from "../store/store";
 import FilterBy from "../Components/FilterBy";
 import SearchBar from "../Components/SearchBar"
 import PaginationControlled from "../Components/Pagination";
-
+import { store } from '../store/store'
+import CustomSnackbar from '../Components/SnackBar'
 
 class Report extends Component {
   state = {
@@ -34,6 +35,11 @@ class Report extends Component {
     await this.setState({ reportStatus: this.props.reportStatus})
     await setTimeout(this.setState({isLoading: this.props.isLoading}), 5000)
     console.log('masuk did mount lagi kah?')
+    if (this.props.isFromLogin) {
+      console.log('yeay masuk if from login')
+      this.setState({openSnack: true})
+      store.setState({isFromLogin: false})
+    }
   };
   handleChangeReport = async (reportId) => {
     // await this.props.handleChangeReport(reportId, "BELUM DISELESAIKAN");
@@ -49,7 +55,18 @@ class Report extends Component {
   handleSearchBar = async (keyword) => {
     await this.setState({word: keyword})
   }
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({openSnack: false});
+    store.setState({isFromLogin: false})
+  };
   render() {
+    const message = 
+    <Typography variant="h6">
+      Welcome Admin!
+    </Typography>
     const { listAllReport, reportStatus, selectedPage, word } = this.state
     let filteredReport = listAllReport
     let topIndex, bottomIndex
@@ -92,6 +109,13 @@ class Report extends Component {
           <MiniDrawer />
           {/* Content begin here */}
           <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
+            <CustomSnackbar
+              open={this.state.openSnack}
+              handleClose={this.handleClose}
+              selectedSnack="success"
+              messageSnack={message}
+              transition="slide"
+            />
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={6} >
               <Typography
@@ -131,4 +155,4 @@ class Report extends Component {
   }
 }
 
-export default connect("listAllReport, isLoading, reportStatus", actions)(withRouter(Report));
+export default connect("listAllReport, isLoading, reportStatus, isFromLogin", actions)(withRouter(Report));

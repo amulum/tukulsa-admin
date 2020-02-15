@@ -12,6 +12,7 @@ import { withRouter, Link } from "react-router-dom";
 import "../App.css";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
+import CustomSnackbar from "./SnackBar";
 
 function Copyright() {
   return (
@@ -55,6 +56,14 @@ const useStyles = makeStyles(theme => ({
 
 function Login(props) {
   const classes = useStyles();
+  const message = 
+    <Typography variant="h6">
+      INVALID SECURITY CODE!!!
+    </Typography>
+  const messageLogout =
+  <Typography variant="h6">
+    Bye-bye Admin, See you next time :))
+  </Typography>
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -90,6 +99,20 @@ function Login(props) {
       <Box mt={2}>
         <Copyright />
       </Box>
+      <CustomSnackbar
+        open={props.open}
+        handleClose={props.handleClose}
+        selectedSnack="error"
+        messageSnack={message}
+        transition="grow"
+      />
+      <CustomSnackbar
+        open={props.isFromLogout}
+        handleClose={props.handleClose}
+        selectedSnack="success"
+        messageSnack={messageLogout}
+        transition="fade"
+      />
     </Container>
   );
 }
