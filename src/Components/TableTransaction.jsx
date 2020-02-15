@@ -1,11 +1,8 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Grid,
-  Typography
-} from "@material-ui/core";
-import LoadingRow from "./Loop/LoadingRow"
-import RowTransactions from "./Loop/RowTransaction"
+import { Grid, Typography } from "@material-ui/core";
+import LoadingRow from "./Loop/LoadingRow";
+import RowTransactions from "./Loop/RowTransaction";
 import { withRouter } from "react-router-dom";
 import { connect } from "unistore/react";
 import { actions } from "../store/store";
@@ -19,7 +16,7 @@ const useStyles = makeStyles({
     fontWeight: "500",
     fontSize: "1.4em",
     color: "#1b4144",
-    fontFamily: "Cabin",
+    fontFamily: "Cabin"
     // fontFamily: "Questrial",
     // fontFamily: "Oxygen",
   }
@@ -36,7 +33,7 @@ const TableTransaction = props => {
         orderStatus={item.order_status}
         paymentStatus={item.payment_status}
         phoneNumber={item.phone_number}
-        nominal= {item.label}
+        nominal={item.label}
         handleChangeReport={props.handleChangeReport}
       />
     );
@@ -51,60 +48,42 @@ const TableTransaction = props => {
         alignItems="center"
       >
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             TANGGAL
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             ORDER ID
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             NOMINAL
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             NOMOR
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             PEMBAYARAN
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography
-            variant="h6"
-            className={classes.padding}
-          >
+          <Typography variant="h6" className={classes.padding}>
             ORDER
           </Typography>
         </Grid>
         {props.isLoading ? (
           <Fragment>
-            <LoadingRow listLoading={[2,2,2,2,2,2]} />
-            <LoadingRow listLoading={[2,2,2,2,2,2]} />
-            <LoadingRow listLoading={[2,2,2,2,2,2]} />
-            <LoadingRow listLoading={[2,2,2,2,2,2]} />
-            <LoadingRow listLoading={[2,2,2,2,2,2]} />
+            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
+            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
+            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
+            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
+            <LoadingRow listLoading={[2, 2, 2, 2, 2, 2]} />
           </Fragment>
         ) : (
           loopRow
@@ -114,7 +93,4 @@ const TableTransaction = props => {
   );
 };
 
-export default connect(
-  "",
-  actions
-)(withRouter(TableTransaction));
+export default connect("", actions)(withRouter(TableTransaction));

@@ -16,7 +16,11 @@ import CustomSnackbar from "./SnackBar";
 
 function Copyright() {
   return (
-    <Typography variant="subtitle1" align="center" style={{fontFamily: "Oxygen"}}>
+    <Typography
+      variant="subtitle1"
+      align="center"
+      style={{ fontFamily: "Oxygen" }}
+    >
       {"Copyright © "}
       <Link color="inherit" href="https://admin.tukulsa.site/">
         tukulsa.site
@@ -56,14 +60,12 @@ const useStyles = makeStyles(theme => ({
 
 function Login(props) {
   const classes = useStyles();
-  const message = 
-    <Typography variant="h6">
-      INVALID SECURITY CODE!!!
-    </Typography>
-  const messageLogout =
-  <Typography variant="h6">
-    Bye-bye Admin, See you next time :))
-  </Typography>
+  const message = (
+    <Typography variant="h6">INVALID SECURITY CODE!!!</Typography>
+  );
+  const messageLogout = (
+    <Typography variant="h6">Bye-bye Admin, See you next time :))</Typography>
+  );
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -83,7 +85,7 @@ function Login(props) {
             label="SECURITY CODE"
             type="password"
             id="security"
-            style={{fontFamily: "Cabin", fontWeight: "500"}}
+            style={{ fontFamily: "Cabin", fontWeight: "500" }}
           />
           <Button
             type="submit"

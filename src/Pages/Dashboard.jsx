@@ -8,90 +8,92 @@ import "../App.css";
 import Balances from "../Components/Balance";
 import Chart from "../Components/Chart";
 import Grid from "@material-ui/core/Grid";
-import generateData from '../utils/generateData';
-import ControlledOpenSelect from '../Components/ControlledOpenSelect';
-import CustomSnackbar from '../Components/SnackBar'
-
-
+import generateData from "../utils/generateData";
+import ControlledOpenSelect from "../Components/ControlledOpenSelect";
+import CustomSnackbar from "../Components/SnackBar";
 
 class Dashboard extends Component {
   state = {
     isLoadingModal: true,
     isLoadingPenjualan: true,
     openSnack: false
-  }
+  };
   componentWillMount = () => {
     if (this.props.isFromLogin) {
-      console.log('yeay masuk if from login')
-      this.setState({openSnack: true})
-      store.setState({isFromLogin: false})
+      // console.log("yeay masuk if from login");
+      this.setState({ openSnack: true });
+      store.setState({ isFromLogin: false });
     }
-  }
+  };
   componentDidMount = async () => {
     await this.props.getFilterTransactions(this.props.DashboardPeriod);
     await this.props.getBalanceMobilePulsa();
-    this.setState({isLoadingModal : this.props.isLoadingModal})
-    this.setState({isLoadingPenjualan : this.props.isLoadingPenjualan})
+    this.setState({ isLoadingModal: this.props.isLoadingModal });
+    this.setState({ isLoadingPenjualan: this.props.isLoadingPenjualan });
   };
   handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
-    this.setState({openSnack: false});
-    store.setState({isFromLogin: false})
+    this.setState({ openSnack: false });
+    store.setState({ isFromLogin: false });
   };
   render() {
-    const message = 
-    <Typography variant="h6">
-      Welcome Admin!
-    </Typography>
-    const data = generateData(this.props.listSuccessTransactions, this.props.DashboardPeriod);
-    if (localStorage.getItem('token')=== null) {
-      return (
-        <Redirect to="/"/>
-      )
+    const message = <Typography variant="h6">Welcome Admin!</Typography>;
+    const data = generateData(
+      this.props.listSuccessTransactions,
+      this.props.DashboardPeriod
+    );
+    if (localStorage.getItem("token") === null) {
+      return <Redirect to="/" />;
     } else {
-        return (
-          <Fragment>
-            <MiniDrawer />
-            {/* Content begin here */}
-            <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
-              <CustomSnackbar
-                open={this.state.openSnack}
-                handleOpen={this.handleOpen}
-                handleClose={this.handleClose}
-                selectedSnack="success"
-                messageSnack={message}
-                transition="slide"
-              />
-              <Grid container direction="row" alignItems="center">
-                <Grid item xs={10} >
-                  <Typography
-                    variant="h4"
-                    style={{ marginTop: "auto", marginBottom: "auto", fontFamily: "antipasto_prodemibold, sans-serif", fontWeight: "700", color: "#306854" }}
-                  >
-                    Dashboard
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <ControlledOpenSelect />
-                </Grid>
+      return (
+        <Fragment>
+          <MiniDrawer />
+          {/* Content begin here */}
+          <main style={{ padding: "1.5em", paddingTop: "7%", width: "100%" }}>
+            <CustomSnackbar
+              open={this.state.openSnack}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+              selectedSnack="success"
+              messageSnack={message}
+              transition="slide"
+            />
+            <Grid container direction="row" alignItems="center">
+              <Grid item xs={10}>
+                <Typography
+                  variant="h4"
+                  style={{
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                    fontFamily: "antipasto_prodemibold, sans-serif",
+                    fontWeight: "700",
+                    color: "#306854"
+                  }}
+                >
+                  Dashboard
+                </Typography>
               </Grid>
-              <Balances
-                periode={this.props.DashboardPeriod + " Hari Terakhir"}
-                totalPenjualan={`Rp ${this.props.totalPenjualan}`}
-                totalTransaksi={this.props.totalTransaksi}
-                balancePulsa={this.props.balancePulsa}
-                isLoadingModal={this.state.isLoadingModal}
-                isLoadingPenjualan={this.state.isLoadingPenjualan}
-              />
-              <Chart data={data} />
-            </main>
-            {/* EOF content */}
-          </Fragment>
-        );
-      }
+              <Grid item xs={2}>
+                <ControlledOpenSelect />
+              </Grid>
+            </Grid>
+            <Balances
+              periode={this.props.DashboardPeriod + " Hari Terakhir"}
+              totalPenjualan={`Rp ${this.props.totalPenjualan}`}
+              totalTransaksi={this.props.totalTransaksi}
+              balancePulsa={this.props.balancePulsa}
+              isLoadingModal={this.state.isLoadingModal}
+              isLoadingPenjualan={this.state.isLoadingPenjualan}
+            />
+            <Chart data={data} />
+          </main>
+          {/* EOF content */}
+        </Fragment>
+      );
     }
+  }
 }
 
 export default connect(

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     minWidth: "90%"
   },
-  cabin : {
+  cabin: {
     fontFamily: "Cabin"
   }
 }));
@@ -33,7 +33,7 @@ export default function ControlledOpenSelect(props) {
         days_ago: days
       },
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     };
     const self = store;
@@ -85,7 +85,13 @@ export default function ControlledOpenSelect(props) {
   return (
     <div style={{ margin: "0 0 0 auto" }}>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel}id="demo-controlled-open-select-label" className={classes.cabin}>PERIODE</InputLabel>
+        <InputLabel
+          ref={inputLabel}
+          id="demo-controlled-open-select-label"
+          className={classes.cabin}
+        >
+          PERIODE
+        </InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -97,9 +103,15 @@ export default function ControlledOpenSelect(props) {
           labelWidth={labelWidth}
           fullWidth
         >
-          <MenuItem value={3} className={classes.cabin}>3 Hari Terakhir</MenuItem>
-          <MenuItem value={7} className={classes.cabin}>7 Hari Terakhir</MenuItem>
-          <MenuItem value={30} className={classes.cabin}>30 Hari Terakhir</MenuItem>
+          <MenuItem value={3} className={classes.cabin}>
+            3 Hari Terakhir
+          </MenuItem>
+          <MenuItem value={7} className={classes.cabin}>
+            7 Hari Terakhir
+          </MenuItem>
+          <MenuItem value={30} className={classes.cabin}>
+            30 Hari Terakhir
+          </MenuItem>
         </Select>
       </FormControl>
     </div>
