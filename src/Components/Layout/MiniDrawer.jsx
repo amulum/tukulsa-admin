@@ -125,6 +125,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
+/**
+ * Return Component MinDrawer
+ * for sliding menu and also header
+ */
 function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();

@@ -84,7 +84,7 @@ class Transactions extends Component {
         }
       });
     }
-    const oke = (
+    const inputBox = (
       <TableTransaction
         listAllTransactions={filteredTransactions.slice(bottomIndex, topIndex)}
         isLoading={this.state.isLoading}
@@ -152,7 +152,7 @@ class Transactions extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <BoxElement value={oke} />
+            <BoxElement value={inputBox} />
             <Grid Container justify="flex-end">
               <Grid item xs={12}>
                 <PaginationControlled

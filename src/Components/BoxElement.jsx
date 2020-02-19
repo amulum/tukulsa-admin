@@ -11,6 +11,11 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "1px 0px 6px 3px rgba(224,234,236,0.74)"
   }
 }));
+
+/**
+ * Return Component Box with style already set before
+ * @param {value} props component that will wrap inside box 
+ */
 const BoxElement = props => {
   const classes = useStyles();
   return (

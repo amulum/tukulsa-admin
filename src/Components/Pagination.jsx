@@ -12,6 +12,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
+/**
+ * Return Component Pagination with circle style 
+ * @param {handlePagination} props function that set state in page for handle selected page
+ * @param {lengthPages} props number variable describe length of pagination will show in page
+ */
 export default function PaginationControlled(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
@@ -19,8 +25,6 @@ export default function PaginationControlled(props) {
   const handleChange = async (event, value) => {
     await setPage(value);
     await handlePagination(value);
-    // console.log("page di component", page);
-    // console.log("value di component", value);
   };
 
   return (

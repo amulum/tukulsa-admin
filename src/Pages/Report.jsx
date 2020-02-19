@@ -89,7 +89,7 @@ class Report extends Component {
         }
       });
     }
-    const oke = (
+    const inputBox = (
       <TableReport
         listAllReport={filteredReport.slice(bottomIndex, topIndex)}
         handleChangeReport={this.handleChangeReport}
@@ -145,7 +145,7 @@ class Report extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <BoxElement value={oke} />
+            <BoxElement value={inputBox} />
             <Grid Container justify="flex-end">
               <Grid item xs={12}>
                 <PaginationControlled

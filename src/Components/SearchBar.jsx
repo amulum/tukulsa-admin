@@ -45,6 +45,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/** 
+ * Return Component searchBar that can filter list
+ * 
+ * @param {handleSearchbar} props function that will set state specific keyword search in page on change event 
+ * 
+*/
 export default function SearchBar(props) {
   const classes = useStyles();
   const handleSearch = props.handleSearchbar;

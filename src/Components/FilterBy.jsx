@@ -21,6 +21,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/** 
+ * Return Component FilterBy that can filter list
+ * 
+ * @props function handleFilterStatus, set state specific keyword in page
+ * @props listFilter, list object that would be filtered
+*/
 function FilterBy(props) {
   const classes = useStyles();
   const [status, setStatus] = useState("");

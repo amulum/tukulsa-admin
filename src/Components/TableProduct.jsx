@@ -22,6 +22,13 @@ const useStyles = makeStyles({
   }
 });
 
+/**
+ * Return TableProduct Component show header and row data of product
+ * 
+ * @param {listAllProduct} props list of object product that will use in row function loopRow for looping each data in list that will generate RowProduct Component  
+ * @param {handleChangePrice} props from page that will handle change table product for spesific products price 
+ * @param {isLoading} props boolean state from global state for animation loading in page before component loaded
+ */
 const TableProduct = props => {
   const classes = useStyles();
   const loopRow = props.listAllProduct.map((item, key) => {

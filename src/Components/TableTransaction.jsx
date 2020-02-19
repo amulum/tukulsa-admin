@@ -17,11 +17,16 @@ const useStyles = makeStyles({
     fontSize: "1.4em",
     color: "#1b4144",
     fontFamily: "Cabin"
-    // fontFamily: "Questrial",
-    // fontFamily: "Oxygen",
   }
 });
 
+
+/**
+ * Return TableTransactions Component show header and row data of transactions
+ * 
+ * @param {listAllTransactions} props list of object transactions that will use in row function loopRow for looping each data in list that will generate RowTransactions Component  
+ * @param {isLoading} props boolean state from global state for animation loading in page before component loaded
+ */
 const TableTransaction = props => {
   const classes = useStyles();
   const loopRow = props.listAllTransactions.map((item, key) => {

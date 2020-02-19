@@ -65,7 +65,7 @@ class Product extends Component {
         return false;
       });
     }
-    const oke = (
+    const inputBox = (
       <TableProduct
         listAllProduct={filteredProduct.slice(bottomIndex, topIndex)}
         isLoading={this.state.isLoading}
@@ -116,7 +116,7 @@ class Product extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <BoxElement value={oke} />
+            <BoxElement value={inputBox} />
             <Grid Container justify="flex-end">
               <Grid item xs={12}>
                 <PaginationControlled

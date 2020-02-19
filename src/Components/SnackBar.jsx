@@ -12,9 +12,15 @@ function FadeTransition(props) {
   return <Fade {...props} />;
 }
 
+/**
+ * Return Snackbar Component with selected message and selected type
+ * 
+ * @param {open} props boolean return for handle open and close snackbar component
+ * @param {messageSnack} props string variable, message will show when snackbar appear
+ * @param {selectedSnack} props type of snackbar there are 4 types:
+ * "success", "warning", "info", "error"  
+ */
 export default function CustomSnackbar(props) {
-  // console.log("open di snack bar", props.open);
-  // console.log("props di snackbar", props);
   let transition = {
     slide: SlideTransition,
     grow: GrowTransition,

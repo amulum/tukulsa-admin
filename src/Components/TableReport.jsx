@@ -23,8 +23,14 @@ const useStyles = makeStyles({
   }
 });
 
+/**
+ * Return TableReport Component show header and row data of report
+ * 
+ * @param {listAllReport} props list of object transactions that will use in row function loopRow for looping each data in list that will generate RowTransactions Component  
+ * @param {handleChangeReport} props from page that will handle change table report component such as report status and 
+ * @param {isLoading} props boolean state from global state for animation loading in page before component loaded
+ */
 const TableReport = props => {
-  // console.log("filtered report di dalem table", props.listAllReport);
   const classes = useStyles();
   const loopRow = props.listAllReport.map((item, key) => {
     return (
